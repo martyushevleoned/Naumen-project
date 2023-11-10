@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <title>My ToDo List</title>
+</head>
+<body>
+<div class="wrapper">
+    <form th:action="@{/registration}" method="post">
+        <div class="content no-padding">
+            <input type="text" name="username" placeholder="username">
+        </div>
+        <div class="content no-padding">
+            <input type="password" name="password" placeholder="password">
+        </div>
+        <div class="content no-padding">
+            <input type="submit" value="Sign Up">
+        </div>
+    </form>
+    <form th:action="@{/login}" method="get">
+        <div class="content no-padding">
+            <input type="submit" value="Back">
+        </div>
+    </form>
+</div>
+</body>
+</html>
