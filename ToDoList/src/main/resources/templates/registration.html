@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
-    <link rel="stylesheet" href="/static/css/base.css">
     <title>My ToDo List</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/wrapper.css">
+    <link rel="stylesheet" href="../static/css/input.css">
 </head>
 <body>
 <div class="wrapper">
@@ -14,12 +16,16 @@
             <input type="password" name="password" placeholder="password">
         </div>
         <div class="content no-padding">
-            <input type="submit" value="Sign Up">
+            <button type="submit">
+                Sign Up
+            </button>
         </div>
     </form>
     <form th:action="@{/login}" method="get">
         <div class="content no-padding">
-            <input type="submit" value="Back">
+            <button type="submit">
+                Back
+            </button>
         </div>
     </form>
 </div>

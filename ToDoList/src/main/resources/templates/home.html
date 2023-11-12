@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
-    <link rel="stylesheet" href="/static/css/base.css">
     <title>My ToDo List</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/wrapper.css">
+    <link rel="stylesheet" href="../static/css/input.css">
+    <link rel="stylesheet" href="../static/css/home.css">
 </head>
 <body>
-<div class="wrapper">
-    <form th:action="@{/projects}" method="get">
-        <div class="no-padding">
-            <input type="submit" value="My Projects">
+<div class="header">
+    <div class="header-content">
+        <div class="content" sec:authorize="isAuthenticated()">
+            <span class="username">
+                <span>Hello, </span>
+                <span sec:authentication="name"></span>
+            </span>
         </div>
-    </form>
+        <form th:action="@{/logout}" method="post">
+            <div class="content no-padding">
+                <button type="submit">
+                    Sign Out
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="header-content">
+        <div class="content no-padding">
+            <input placeholder="project name" value="project name">
+        </div>
+        <div class="content no-padding">
+            <button>
+                Add project
+            </button>
+        </div>
+    </div>
 </div>
 </body>
 </html>

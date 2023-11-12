@@ -37,29 +37,6 @@ body {
 	background-color: var(--bg-color);
 }
 
-input {
-	text-align: center;
-	width: 100%;
-	height: calc(var(--font-size) + var(--default-padding) * 2 + 3px);
-	background-color: var(--content-color);
-}
-
-input:hover{
-	background-color: var(--hover-color);
-}
-
 .content{
 	background-color: var(--content-color);
-}
-
-.no-padding{
-	padding: 0;
-	overflow: hidden;
-}
-
-div.wrapper {
-	width: 75%;
-	max-width: 300px;
-	margin: var(--default-margin) auto var(--default-margin);
-	background-color: var(--container-color);
 }

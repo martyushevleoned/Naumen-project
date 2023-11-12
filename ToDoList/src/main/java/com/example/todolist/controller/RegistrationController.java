@@ -16,7 +16,6 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-//    registry.addViewController не работает
     @GetMapping
     public String registration() {
         return "registration";

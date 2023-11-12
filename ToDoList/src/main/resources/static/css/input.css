@@ -1,0 +1,15 @@
+input, button{
+	text-align: center;
+	width: 100%;
+	height: calc(var(--font-size) + var(--default-padding) * 2 + 3px);
+	background-color: var(--content-color);
+}
+
+input:hover, button:hover{
+	background-color: var(--hover-color);
+}
+
+.no-padding{
+	padding: 0;
+	overflow: hidden;
+}
