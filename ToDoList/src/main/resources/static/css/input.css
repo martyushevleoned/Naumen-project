@@ -3,6 +3,7 @@ input, button{
 	width: 100%;
 	height: calc(var(--font-size) + var(--default-padding) * 2 + 3px);
 	background-color: var(--content-color);
+	border-radius: var(--default-border-radius);
 }
 
 input:hover, button:hover{

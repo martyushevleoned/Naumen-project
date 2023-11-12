@@ -3,18 +3,18 @@
 <head>
     <title>My ToDo List</title>
     <link rel="stylesheet" href="../static/css/base.css">
-    <link rel="stylesheet" href="../static/css/wrapper.css">
     <link rel="stylesheet" href="../static/css/input.css">
     <link rel="stylesheet" href="../static/css/home.css">
+    <script type="text/javascript" src="../static/js/script.js"></script>
 </head>
 <body>
 <div class="header">
     <div class="header-content">
         <div class="content" sec:authorize="isAuthenticated()">
-            <span class="username">
-                <span>Hello, </span>
-                <span sec:authentication="name"></span>
-            </span>
+                <span class="username">
+                    <span>Hello, </span>
+                    <span sec:authentication="name"></span>
+                </span>
         </div>
         <form th:action="@{/logout}" method="post">
             <div class="content no-padding">
@@ -26,14 +26,17 @@
     </div>
     <div class="header-content">
         <div class="content no-padding">
-            <input placeholder="project name" value="project name">
+            <input placeholder="project name" value="project name" id="projectName">
         </div>
         <div class="content no-padding">
-            <button>
-                Add project
+            <span th:value="${_csrf.token}" id="token"></span>
+            <button  onclick="newProject()">
+                add project
             </button>
         </div>
     </div>
+</div>
+<div class="body" id="body">
 </div>
 </body>
 </html>

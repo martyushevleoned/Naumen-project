@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,6 +20,10 @@ public class Project {
 
     @Column(columnDefinition = "TEXT")
     private String name;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date creationDateTime;
 
     @ManyToOne
     @JoinColumn(name = "ownerId", foreignKey = @ForeignKey(name = "USR_CHT_FK"))

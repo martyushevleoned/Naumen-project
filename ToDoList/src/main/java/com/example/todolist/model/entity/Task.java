@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "tasks")
 @Data
@@ -20,6 +22,9 @@ public class Task {
     @Column(columnDefinition = "TEXT")
     private String text;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date creationDateTime;
     @ManyToOne
     @JoinColumn(name = "ProjectId", foreignKey = @ForeignKey(name = "PRJ_TSK_FK"))
     private Project project;
