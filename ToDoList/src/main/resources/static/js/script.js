@@ -1,9 +1,9 @@
 async function newProject() {
 
-    //token = (document.getElementById('token').value;
+    //let token = document.getElementById('token').value;
 	//console.log(token);
 
-	addProject(document.getElementById('projectName').value)
+	addProject(document.getElementById('projectName').value);
 }
 
 function addProject(projectName) {

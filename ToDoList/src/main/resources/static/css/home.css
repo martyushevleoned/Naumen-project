@@ -19,3 +19,7 @@ span {
     display: block;
     text-align: center;
 }
+
+span.username {
+    display: inline;
+}
