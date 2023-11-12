@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../static/js/script.js"></script>
 </head>
 <body>
-<span th:value="${_csrf.token}" id="token"></span>
+<input th:value="${_csrf.token}" id="token" type="hidden">
 <div class="header">
     <div class="header-content">
         <div class="content" sec:authorize="isAuthenticated()">
