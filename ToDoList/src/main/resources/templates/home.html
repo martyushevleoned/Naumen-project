@@ -25,7 +25,7 @@
             </div>
         </form>
     </div>
-    <div class="header-content">
+    <div class="header-content" sec:authorize="isAuthenticated()">
         <div class="content no-padding">
             <input placeholder="project name" value="project name" id="projectName">
         </div>
@@ -36,7 +36,21 @@
         </div>
     </div>
 </div>
-<div class="body" id="body">
+<div class="body" id="body" sec:authorize="isAuthenticated()">
+    <div class="body-content" th:each="project: ${projects}">
+        <div class="content">
+            <span th:text="${project.name}"></span>
+        </div>
+        <div class="content">
+            <span>
+                <span class="username" th:text="${project.countOfTasks}"></span>
+                <span class="username"> tasks</span>
+            </span>
+        </div>
+        <div class="content no-padding">
+            <button>open</button>
+        </div>
+    </div>
 </div>
 </body>
 </html>
