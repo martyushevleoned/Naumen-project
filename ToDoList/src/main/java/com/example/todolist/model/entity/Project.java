@@ -22,7 +22,6 @@ public class Project {
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date creationDateTime;
 
     @ManyToOne

@@ -1,9 +1,23 @@
 async function newProject() {
 
     let token = document.getElementById('token').value;
-	console.log(token);
+    let project = document.getElementById('projectName').value;
 
-	addProject(document.getElementById('projectName').value);
+	let url = new URL('http://localhost:8080/home/add/project');
+    let params = new URLSearchParams({
+    	_csrf: token,
+    	projectName: project
+    });
+
+    //console.log(url + '?' + params);
+    let response = await fetch(url + '?' + params);
+
+    if (response.ok) {
+        //console.log(response);
+        addProject(project);
+    } else {
+        alert('Ошибка HTTP: ' + response.status);
+    }
 }
 
 function addProject(projectName) {
