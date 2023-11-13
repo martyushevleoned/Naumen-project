@@ -14,12 +14,3 @@ div.header-content, div.body-content {
 div.header-content, div.body-content {
 	min-width: 15%;
 }
-
-span {
-    display: block;
-    text-align: center;
-}
-
-span.username {
-    display: inline;
-}

@@ -3,7 +3,7 @@ async function newProject() {
     let token = document.getElementById('token').value;
     let project = document.getElementById('projectName').value;
 
-	let url = new URL('http://localhost:8080/home/add/project');
+	let url = new URL('http://localhost:8080/projects/add');
     let params = new URLSearchParams({
     	_csrf: token,
     	projectName: project

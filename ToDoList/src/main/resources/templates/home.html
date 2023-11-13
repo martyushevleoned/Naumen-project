@@ -4,53 +4,31 @@
     <title>My ToDo List</title>
     <link rel="stylesheet" href="../static/css/base.css">
     <link rel="stylesheet" href="../static/css/input.css">
-    <link rel="stylesheet" href="../static/css/home.css">
-    <script type="text/javascript" src="../static/js/script.js"></script>
+    <link rel="stylesheet" href="../static/css/wrapper.css">
+    <link rel="stylesheet" href="../static/css/span.css">
 </head>
 <body>
-<input th:value="${_csrf.token}" id="token" type="hidden">
-<div class="header">
-    <div class="header-content">
+    <div class="wrapper">
         <div class="content" sec:authorize="isAuthenticated()">
                 <span>
-                    <span class="username">Hello, </span>
-                    <span class="username" sec:authentication="name"></span>
+                    <span class="center">Hello, </span>
+                    <span class="center" sec:authentication="name"></span>
                 </span>
         </div>
-        <form th:action="@{/logout}" method="post">
-            <div class="content no-padding">
+        <div class="content no-padding"  sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
                 <button type="submit">
                     Sign Out
+                </button>
+            </form>
+        </div>
+        <form th:action="@{/projects}" method="get">
+            <div class="content no-padding">
+                <button type="submit">
+                    Projects
                 </button>
             </div>
         </form>
     </div>
-    <div class="header-content" sec:authorize="isAuthenticated()">
-        <div class="content no-padding">
-            <input placeholder="project name" value="project name" id="projectName">
-        </div>
-        <div class="content no-padding">
-            <button  onclick="newProject()">
-                add project
-            </button>
-        </div>
-    </div>
-</div>
-<div class="body" id="body" sec:authorize="isAuthenticated()">
-    <div class="body-content" th:each="project: ${projects}">
-        <div class="content">
-            <span th:text="${project.name}"></span>
-        </div>
-        <div class="content">
-            <span>
-                <span class="username" th:text="${project.countOfTasks}"></span>
-                <span class="username"> tasks</span>
-            </span>
-        </div>
-        <div class="content no-padding">
-            <button>open</button>
-        </div>
-    </div>
-</div>
 </body>
 </html>

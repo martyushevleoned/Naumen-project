@@ -18,19 +18,14 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @GetMapping("")
-    public String root(@AuthenticationPrincipal User user, Model model) {
-        return home(user, model);
-    }
-
-    @GetMapping("/home")
+    @GetMapping("/projects")
     public String home(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("projects", projectService.getAllProjects(user));
-        return "home";
+        return "projects";
     }
 
     @ResponseBody
-    @GetMapping("/home/add/project")
+    @GetMapping("/projects/add")
     public ResponseEntity<HttpStatus> projectList(@AuthenticationPrincipal User user,
                                                   @RequestParam String projectName) {
         projectService.addProject(user, projectName);
