@@ -28,7 +28,8 @@ public class ProjectController {
     @GetMapping("/projects/add")
     public ResponseEntity<HttpStatus> projectList(@AuthenticationPrincipal User user,
                                                   @RequestParam String projectName) {
-        projectService.addProject(user, projectName);
+        Long id = projectService.addProject(user, projectName);
+        System.out.println(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

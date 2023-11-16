@@ -21,14 +21,16 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public void addProject(User user, String projectName) {
+    public Long addProject(User user, String projectName) {
 
         Project project = new Project();
         project.setName(projectName);
         project.setUser(user);
-        project.setCreationDateTime(new Date());
-
+        Date date = new Date();
+        project.setCreationDateTime(date);
         projectRepository.save(project);
+
+        return projectRepository.findByUserIdAndDatetime(user, date).get(0).getId();
     }
 
     public Iterable<ProjectDto> getAllProjects(User user){
