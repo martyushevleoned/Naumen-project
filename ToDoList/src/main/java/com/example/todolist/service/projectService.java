@@ -30,13 +30,13 @@ public class ProjectService {
         project.setCreationDateTime(date);
         projectRepository.save(project);
 
-        return projectRepository.findByUserIdAndDatetime(user, date).get(0).getId();
+        return projectRepository.findByUserIdAndDatetime(user, projectName, date).get(0).getId();
     }
 
-    public Iterable<ProjectDto> getAllProjects(User user){
+    public Iterable<ProjectDto> getAllProjects(User user) {
         List<ProjectDto> projectDtos = new ArrayList<>();
 
-        userRepository.getReferenceById(user.getId()).getProjects().forEach( p -> {
+        userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
             projectDtos.add(new ProjectDto(p.getName(), p.getTasks().size()));
         });
 
