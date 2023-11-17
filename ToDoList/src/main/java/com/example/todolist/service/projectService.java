@@ -8,9 +8,7 @@ import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ProjectService {
@@ -37,9 +35,18 @@ public class ProjectService {
         List<ProjectDto> projectDtos = new ArrayList<>();
 
         userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
-            projectDtos.add(new ProjectDto(p.getName(), p.getTasks().size()));
+            projectDtos.add(new ProjectDto(p.getId(), p.getName(), p.getTasks().size()));
         });
 
         return projectDtos;
+    }
+
+    public void deleteProject(User user, Long id) {
+        Optional<Project> project =  projectRepository.findById(id);
+        if (project.isEmpty())
+            return;
+
+        if (Objects.equals(user.getUsername(), project.get().getUser().getUsername()))
+            projectRepository.deleteById(id);
     }
 }

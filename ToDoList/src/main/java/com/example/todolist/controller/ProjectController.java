@@ -26,9 +26,17 @@ public class ProjectController {
 
     @ResponseBody
     @GetMapping("/projects/add")
-    public Long projectList(@AuthenticationPrincipal User user,
+    public Long addProject(@AuthenticationPrincipal User user,
                                                   @RequestParam String projectName) {
 
         return projectService.addProject(user, projectName);
+    }
+
+    @ResponseBody
+    @GetMapping("/projects/delete")
+    public void deleteProject(@AuthenticationPrincipal User user,
+                            @RequestParam Long id) {
+
+        projectService.deleteProject(user, id);
     }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ProjectDto {
 
+    Long id;
     String name;
     int countOfTasks;
 

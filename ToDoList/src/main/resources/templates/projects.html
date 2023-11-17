@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../static/css/input.css">
     <link rel="stylesheet" href="../static/css/home.css">
     <link rel="stylesheet" href="../static/css/span.css">
-    <script type="text/javascript" src="../static/js/script.js"></script>
+    <script type="text/javascript" src="../static/js/projects.js"></script>
 </head>
 <body>
 <input th:value="${_csrf.token}" id="token" type="hidden">
@@ -45,7 +45,7 @@
     </div>
 </div>
 <div class="body" id="body">
-    <div class="body-content" th:each="project: ${projects}">
+    <div class="body-content" th:each="project,i: ${projects}" th:id="${projects[i.index].id}">
         <div class="content">
             <span th:text="${project.name}"></span>
         </div>
@@ -56,7 +56,7 @@
             </span>
         </div>
         <div class="content no-padding">
-            <button>open</button>
+            <button>delete</button>
         </div>
     </div>
 </div>

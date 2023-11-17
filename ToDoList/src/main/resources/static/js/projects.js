@@ -34,14 +34,36 @@ function addProject(projectName, id) {
    let dv = document.createElement('div');
    dv.className = 'content no-padding';
    dv_bt = document.createElement('button');
-   dv_bt.innerHTML += 'open';
+   dv_bt.innerHTML += 'delete';
    dv.appendChild(dv_bt);
 
    let bc = document.createElement('div');
    bc.className = 'body-content';
+   bc.id = id;
    bc.appendChild(pn);
    bc.appendChild(ct);
    bc.appendChild(dv);
 
    document.getElementById('body').appendChild(bc);
+}
+
+
+async function deleteProject(projectId) {
+
+    let token = document.getElementById('token').value;
+
+	let url = new URL('http://localhost:8080/projects/delete');
+    let params = new URLSearchParams({
+    	_csrf: token,
+    	id: projectId
+    });
+
+    fetch(url + '?' + params).then(
+        hideProject(projectId),
+        r => alert('Ошибка HTTP: ' + r.status)
+    );
+}
+
+function hideProject(id) {
+
 }
