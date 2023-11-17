@@ -43,6 +43,7 @@ public class ProjectService {
 
     public void deleteProject(User user, Long id) {
         Optional<Project> project =  projectRepository.findById(id);
+
         if (project.isEmpty())
             return;
 

@@ -49,14 +49,14 @@
         <div class="content">
             <span th:text="${project.name}"></span>
         </div>
+        <div class="content no-padding">
+            <button th:onclick="'deleteProject(' + ${project.id} + ')'">delete</button>
+        </div>
         <div class="content">
             <span>
                 <span class="center" th:text="${project.countOfTasks}"></span>
                 <span class="center"> tasks</span>
             </span>
-        </div>
-        <div class="content no-padding">
-            <button>delete</button>
         </div>
     </div>
 </div>

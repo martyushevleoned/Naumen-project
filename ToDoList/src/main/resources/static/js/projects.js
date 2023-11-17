@@ -25,24 +25,25 @@ function addProject(projectName, id) {
    pn_sp.innerHTML += projectName;
    pn.appendChild(pn_sp);
 
+   let dv = document.createElement('div');
+   dv.className = 'content no-padding';
+   dv_bt = document.createElement('button');
+   dv_bt.innerHTML += 'delete';
+   dv_bt.onclick = function(){ deleteProject(id); };
+   dv.appendChild(dv_bt);
+
    let ct = document.createElement('div');
    ct.className = 'content';
    ct_sp = document.createElement('span');
    ct_sp.innerHTML += '0 tasks';
    ct.appendChild(ct_sp);
 
-   let dv = document.createElement('div');
-   dv.className = 'content no-padding';
-   dv_bt = document.createElement('button');
-   dv_bt.innerHTML += 'delete';
-   dv.appendChild(dv_bt);
-
    let bc = document.createElement('div');
    bc.className = 'body-content';
    bc.id = id;
    bc.appendChild(pn);
-   bc.appendChild(ct);
    bc.appendChild(dv);
+   bc.appendChild(ct);
 
    document.getElementById('body').appendChild(bc);
 }
@@ -65,5 +66,5 @@ async function deleteProject(projectId) {
 }
 
 function hideProject(id) {
-
+    document.getElementById(id).remove();
 }
