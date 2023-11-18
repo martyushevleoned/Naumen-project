@@ -1,6 +1,6 @@
 package com.example.todolist.service;
 
-import com.example.todolist.model.dto.ProjectDto;
+import com.example.todolist.model.dto.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.ProjectRepository;
@@ -19,6 +19,16 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    public Iterable<ProjectCardDto> getAllProjects(User user) {
+        List<ProjectCardDto> projectCardDtos = new ArrayList<>();
+
+        userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
+            projectCardDtos.add(new ProjectCardDto(p.getId(), p.getName(), p.getTasks().size()));
+        });
+
+        return projectCardDtos;
+    }
+
     public Long addProject(User user, String projectName) {
 
         Project project = new Project();
@@ -31,23 +41,11 @@ public class ProjectService {
         return projectRepository.findByUserIdAndDatetime(user, projectName, date).get(0).getId();
     }
 
-    public Iterable<ProjectDto> getAllProjects(User user) {
-        List<ProjectDto> projectDtos = new ArrayList<>();
-
-        userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
-            projectDtos.add(new ProjectDto(p.getId(), p.getName(), p.getTasks().size()));
-        });
-
-        return projectDtos;
-    }
-
     public void deleteProject(User user, Long id) {
-        Optional<Project> project =  projectRepository.findById(id);
 
-        if (project.isEmpty())
-            return;
-
-        if (Objects.equals(user.getUsername(), project.get().getUser().getUsername()))
-            projectRepository.deleteById(id);
+        projectRepository.findById(id).ifPresent( p -> {
+            if (Objects.equals(p.getUser().getUsername(), user.getUsername()))
+                projectRepository.delete(p);
+        });
     }
 }

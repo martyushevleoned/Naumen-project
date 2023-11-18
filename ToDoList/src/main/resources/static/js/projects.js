@@ -17,8 +17,6 @@ async function newProject() {
 
 function addProject(projectName, id) {
 
-   console.log(id)
-
    let pn = document.createElement('div');
    pn.className = 'content';
    pn_sp = document.createElement('span');

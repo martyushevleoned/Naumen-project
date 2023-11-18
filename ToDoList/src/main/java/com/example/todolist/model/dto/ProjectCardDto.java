@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ProjectDto {
+public class ProjectCardDto {
 
     Long id;
     String name;

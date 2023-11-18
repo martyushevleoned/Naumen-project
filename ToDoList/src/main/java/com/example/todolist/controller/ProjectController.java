@@ -19,7 +19,7 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/projects")
-    public String home(@AuthenticationPrincipal User user, Model model) {
+    public String projects(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("projects", projectService.getAllProjects(user));
         return "projects";
     }
