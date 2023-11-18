@@ -1,7 +1,7 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.model.entity.User;
-import com.example.todolist.model.repository.ProjectService;
+import com.example.todolist.service.ProjectService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
