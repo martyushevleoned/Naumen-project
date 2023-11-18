@@ -23,12 +23,12 @@ function addProject(projectName, id) {
    pn_sp.innerHTML += projectName;
    pn.appendChild(pn_sp);
 
-   let dv = document.createElement('div');
-   dv.className = 'content no-padding';
-   dv_bt = document.createElement('button');
-   dv_bt.innerHTML += 'delete';
-   dv_bt.onclick = function(){ deleteProject(id); };
-   dv.appendChild(dv_bt);
+   let dp = document.createElement('div');
+   dp.className = 'content no-padding';
+   dp_bt = document.createElement('button');
+   dp_bt.innerHTML = 'delete';
+   dp_bt.onclick = function(){ deleteProject(id); };
+   dp.appendChild(dp_bt);
 
    let ct = document.createElement('div');
    ct.className = 'content';
@@ -36,12 +36,23 @@ function addProject(projectName, id) {
    ct_sp.innerHTML += '0 tasks';
    ct.appendChild(ct_sp);
 
+   let form = document.createElement('form');
+   form.action = '/project/' + id;
+   let form_dv = document.createElement('div');
+   form_dv.className = 'content no-padding';
+   let form_dv_bt = document.createElement('button');
+   form_dv_bt.innerHTML = 'open';
+   form_dv_bt.type = 'submit';
+   form_dv.appendChild(form_dv_bt);
+   form.appendChild(form_dv);
+
    let bc = document.createElement('div');
    bc.className = 'body-content';
    bc.id = id;
    bc.appendChild(pn);
-   bc.appendChild(dv);
+   bc.appendChild(dp);
    bc.appendChild(ct);
+   bc.appendChild(form);
 
    document.getElementById('body').appendChild(bc);
 }

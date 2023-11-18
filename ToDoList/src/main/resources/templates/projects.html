@@ -58,6 +58,13 @@
                 <span class="center"> tasks</span>
             </span>
         </div>
+        <form th:action="@{/project/{path}(path=${project.id})}" method="get">
+            <div class="content no-padding">
+                <button type="submit">
+                    open
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 </body>

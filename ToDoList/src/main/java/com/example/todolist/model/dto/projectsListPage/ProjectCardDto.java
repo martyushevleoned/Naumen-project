@@ -1,4 +1,4 @@
-package com.example.todolist.model.dto;
+package com.example.todolist.model.dto.projectsListPage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
