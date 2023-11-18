@@ -1,4 +1,4 @@
-package com.example.todolist.service;
+package com.example.todolist.model.repository;
 
 import com.example.todolist.model.dto.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
