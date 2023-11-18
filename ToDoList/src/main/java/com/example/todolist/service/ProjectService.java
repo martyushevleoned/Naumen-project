@@ -1,5 +1,6 @@
 package com.example.todolist.service;
 
+import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
@@ -29,6 +30,10 @@ public class ProjectService {
         return projectCardDtos;
     }
 
+    public ProjectDto getProjectInfo(User user, Long id) {
+        return new ProjectDto(id, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
     public Long addProject(User user, String projectName) {
 
         Project project = new Project();
@@ -43,7 +48,7 @@ public class ProjectService {
 
     public void deleteProject(User user, Long id) {
 
-        projectRepository.findById(id).ifPresent( p -> {
+        projectRepository.findById(id).ifPresent(p -> {
             if (Objects.equals(p.getUser().getUsername(), user.getUsername()))
                 projectRepository.delete(p);
         });

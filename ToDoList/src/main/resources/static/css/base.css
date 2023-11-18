@@ -10,6 +10,7 @@
   --default-border-radius: 6px;
   --font-size: 20px;
   --border-width: 1px;
+  --width-basis: 200px;
 }
 
 * {
