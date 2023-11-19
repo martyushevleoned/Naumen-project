@@ -31,7 +31,6 @@ public class ProjectController {
         return "project";
     }
 
-
     @ResponseBody
     @GetMapping("/project/add/task")
     public Long addTask(@AuthenticationPrincipal User user,
@@ -39,5 +38,13 @@ public class ProjectController {
                         @RequestParam String text) {
 
         return taskService.addTask(user, projectId, text);
+    }
+
+    @ResponseBody
+    @GetMapping("/project/delete/task")
+    public void deleteTask(@AuthenticationPrincipal User user,
+                           @RequestParam Long id) {
+
+        taskService.removeTask(user, id);
     }
 }

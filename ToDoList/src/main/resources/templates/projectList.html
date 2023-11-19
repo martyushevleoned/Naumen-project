@@ -50,7 +50,9 @@
             <span th:text="${project.name}"></span>
         </div>
         <div class="content no-padding">
-            <button th:onclick="'deleteProject(' + ${project.id} + ')'">delete</button>
+            <button th:onclick="'deleteProject(' + ${project.id} + ')'">
+                delete
+            </button>
         </div>
         <div class="content">
             <span>

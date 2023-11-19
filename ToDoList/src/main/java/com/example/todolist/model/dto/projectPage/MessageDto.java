@@ -6,4 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MessageDto {
+
+    Long id;
+
+    String text;
 }

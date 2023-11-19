@@ -56,7 +56,7 @@
           <span th:text="${task.text}"></span>
         </div>
         <div class="content no-padding">
-          <button>
+          <button th:onclick="'deleteTask(' + ${task.id} + ')'">
             delete
           </button>
         </div>

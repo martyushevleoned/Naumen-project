@@ -46,4 +46,12 @@ public class TaskService {
 
         return taskRepository.findByProjectAndTextAndDatetime(project,text,date).get(0).getId();
     }
+
+    public void removeTask(User user, Long id){
+
+        taskRepository.findById(id).ifPresent(t -> {
+            if (Objects.equals(user.getUsername(), t.getProject().getUser().getUsername()))
+                taskRepository.delete(t);
+        });
+    }
 }
