@@ -1,0 +1,43 @@
+div.header, div.body {
+	background-color: var(--container-color);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+div.header-content{
+	background-color: var(--block-color);
+	flex-grow: 1;
+	flex-basis: var(--width-basis);
+}
+
+div.tasks, div.messanger{
+	background-color: var(--block-color);
+	flex-grow: 1;
+	min-width: var(--width-basis);
+}
+
+div.tasks {
+	flex-basis: 60%;
+}
+
+block.tasks {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: start;
+	justify-content: space-between;
+}
+
+div.task {
+	background-color: var(--block-color);
+	flex-grow: 1;
+	flex-basis: var(--width-basis);
+}
+
+div.chat {
+	overflow-y:
+	scroll;
+	height:400px;
+}
+
+

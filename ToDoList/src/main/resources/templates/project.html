@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <title>My ToDo List</title>
+  <link rel="stylesheet" href="../static/css/base.css">
+  <link rel="stylesheet" href="../static/css/input.css">
+  <link rel="stylesheet" href="../static/css/project.css">
+  <link rel="stylesheet" href="../static/css/span.css">
+  <script type="text/javascript" src="../static/js/project.js"></script>
+</head>
+<body>
+<input th:value="${_csrf.token}" id="token" type="hidden">
+<input th:value="${project.id}" id="projectId" type="hidden">
+<div class="header">
+  <div class="header-content">
+    <div class="content">
+      <span>
+        <span class="center">Hello, </span>
+        <span class="center" sec:authentication="name"></span>
+      </span>
+    </div>
+    <form th:action="@{/logout}" method="post">
+      <div class="content no-padding">
+        <button type="submit">
+          Sign Out
+        </button>
+      </div>
+    </form>
+    <form th:action="@{/projects}" method="get">
+      <div class="content no-padding">
+        <button type="submit">
+          Projects
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="header-content">
+    <div class="content">
+      <span th:text="${project.name}"></span>
+    </div>
+    <div class="content no-padding">
+      <input placeholder="task name" value="task Name" id="taskName">
+    </div>
+    <div class="content no-padding">
+      <button onclick="newTask()">
+        add task
+      </button>
+    </div>
+  </div>
+</div>
+<div class="body" id="body">
+  <div class="tasks">
+    <block class="tasks">
+      <div class="task no-padding" th:each="task,i: ${project.tasks}" th:id="${project.tasks[i.index].id}">
+        <div class="content">
+          <span th:text="${task.text}"></span>
+        </div>
+        <div class="content no-padding">
+          <button>
+            delete
+          </button>
+        </div>
+      </div>
+    </block>
+  </div>
+  <div class="messanger">
+    <div class="content chat">
+      <block>
+        <span>some message</span>
+        <div class="no-padding"></div>
+      </block>
+      <span>end of chat</span>
+    </div>
+    <div class="content no-padding">
+      <input placeholder="message" value="message" id="message">
+    </div>
+    <div class="content no-padding">
+      <button>
+        send
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

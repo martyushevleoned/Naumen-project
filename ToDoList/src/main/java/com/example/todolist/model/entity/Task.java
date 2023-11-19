@@ -17,9 +17,6 @@ public class Task {
     private Long id;
 
     @Column(columnDefinition = "TEXT")
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
     private String text;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -29,8 +26,7 @@ public class Task {
     @JoinColumn(name = "ProjectId", foreignKey = @ForeignKey(name = "PRJ_TSK_FK"))
     private Project project;
 
-    public Task(String title, String text, Project project) {
-        this.title = title;
+    public Task(String text, Project project) {
         this.text = text;
         this.project = project;
     }

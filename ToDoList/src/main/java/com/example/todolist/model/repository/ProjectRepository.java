@@ -12,5 +12,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 
     @Query("SELECT p FROM Project p WHERE p.user = ?1 AND p.name = ?2 AND p.creationDateTime = ?3")
-    List<Project> findByUserIdAndDatetime(User user, String name, Date creationDateTime);
+    List<Project> findByUserAndNameAndDatetime(User user, String name, Date creationDateTime);
 }

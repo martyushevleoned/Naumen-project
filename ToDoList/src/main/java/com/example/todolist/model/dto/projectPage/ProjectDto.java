@@ -9,6 +9,8 @@ public class ProjectDto {
 
     Long id;
 
+    String name;
+
     Iterable<TaskDto> tasks;
 
     Iterable<MemberDto> members;
