@@ -33,7 +33,7 @@ function addProject(projectName, id) {
    let ct = document.createElement('div');
    ct.className = 'content';
    ct_sp = document.createElement('span');
-   ct_sp.innerHTML += '0 tasks';
+   ct_sp.innerHTML = '0 tasks';
    ct.appendChild(ct_sp);
 
    let form = document.createElement('form');

@@ -19,4 +19,23 @@ async function newTask() {
 
 function addTask(taskText, id) {
 
+    let task = document.createElement('div');
+    task.className = 'task no-padding';
+    task.id = id;
+
+    let text = document.createElement('div');
+    text.className = 'content';
+    let text_sp = document.createElement('span');
+    text_sp.innerHTML = taskText;
+    text.appendChild(text_sp);
+    task.appendChild(text);
+
+    let del = document.createElement('div');
+    del.className = 'content no-padding';
+    let del_bt = document.createElement('button');
+    del_bt.innerHTML = 'delete';
+    del.appendChild(del_bt);
+    task.appendChild(del);
+
+    document.getElementById('container').appendChild(task);
 }

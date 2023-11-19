@@ -50,7 +50,7 @@
 </div>
 <div class="body" id="body">
   <div class="tasks">
-    <block class="tasks">
+    <block class="container" id="container">
       <div class="task no-padding" th:each="task,i: ${project.tasks}" th:id="${project.tasks[i.index].id}">
         <div class="content">
           <span th:text="${task.text}"></span>
@@ -63,7 +63,7 @@
       </div>
     </block>
   </div>
-  <div class="messanger">
+  <div class="messenger">
     <div class="content chat">
       <block>
         <span>some message</span>
