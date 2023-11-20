@@ -64,18 +64,18 @@
     </block>
   </div>
   <div class="messenger">
-    <div class="content chat">
-      <block>
-        <span>some message</span>
-        <div class="no-padding"></div>
-      </block>
+    <div class="content chat" id="chat">
       <span>end of chat</span>
+      <block th:each="message,i: ${project.messages}" th:id="${project.messages[i.index].id}">
+        <div class="no-padding"></div>
+        <span th:text="${message.text}"></span>
+      </block>
     </div>
     <div class="content no-padding">
       <input placeholder="message" value="message" id="message">
     </div>
     <div class="content no-padding">
-      <button>
+      <button onclick="newMessage()">
         send
       </button>
     </div>

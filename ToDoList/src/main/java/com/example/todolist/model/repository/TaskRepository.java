@@ -2,7 +2,6 @@ package com.example.todolist.model.repository;
 
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.Task;
-import com.example.todolist.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,5 +1,6 @@
 package com.example.todolist.service;
 
+import com.example.todolist.model.dto.projectPage.MessageDto;
 import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.dto.projectPage.TaskDto;
 import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
@@ -45,11 +46,17 @@ public class ProjectService {
             tasks.add(new TaskDto(t.getId(), t.getText()));
         });
 
+        List<MessageDto> messages = new ArrayList<>();
+        project.getMessages().forEach( m -> {
+            messages.add(new MessageDto(m.getId(), m.getText()));
+        });
+        Collections.reverse(messages);
+
         return new ProjectDto(
                 project.getId(),
                 project.getName(),
                 tasks,
-                new ArrayList<>(),
+                messages,
                 new ArrayList<>()
         );
     }

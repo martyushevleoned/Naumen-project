@@ -2,6 +2,7 @@ package com.example.todolist.controller;
 
 import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.entity.User;
+import com.example.todolist.service.MessageService;
 import com.example.todolist.service.ProjectService;
 import com.example.todolist.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ProjectController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private MessageService messageService;
 
     @GetMapping("/project/{id}")
     public String addProject(@AuthenticationPrincipal User user,
@@ -46,5 +50,14 @@ public class ProjectController {
                            @RequestParam Long id) {
 
         taskService.removeTask(user, id);
+    }
+
+    @ResponseBody
+    @GetMapping("/project/add/message")
+    public Long addMessage(@AuthenticationPrincipal User user,
+                           @RequestParam Long projectId,
+                           @RequestParam String text) {
+
+        return messageService.addMessage(user, projectId, text);
     }
 }

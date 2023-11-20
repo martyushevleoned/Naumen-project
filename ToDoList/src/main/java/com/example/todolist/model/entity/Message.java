@@ -16,18 +16,18 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date creationDateTime;
-
-    @ManyToOne
-    @JoinColumn(name = "chatId", foreignKey = @ForeignKey(name = "CHT_FK"))
-    private Project project;
-
     @ManyToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "USR_CHT_FK"))
     private User user;
 
     @Column(columnDefinition = "TEXT")
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "chatId", foreignKey = @ForeignKey(name = "CHT_FK"))
+    private Project project;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date creationDateTime;
 }

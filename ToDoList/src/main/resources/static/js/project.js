@@ -60,3 +60,42 @@ async function deleteTask(taskId) {
 function hideTask(id) {
     document.getElementById(id).remove();
 }
+
+//====================================================================
+
+async function newMessage() {
+
+    let token = document.getElementById('token').value;
+    let project = document.getElementById('projectId').value;
+    let message = document.getElementById('message').value;
+
+
+	let url = new URL('http://localhost:8080/project/add/message');
+    let params = new URLSearchParams({
+    	_csrf: token,
+    	projectId: project,
+    	text: message
+    });
+
+    fetch(url + '?' + params).then(
+        r => r.text().then(id => addMessage(message, id)),
+        r => alert('Ошибка HTTP: ' + r.status)
+    );
+}
+
+function addMessage(message, id) {
+
+    let block = document.createElement('block');
+    block.id = id;
+
+    let block_div = document.createElement('div');
+    block_div.className = 'content no-padding';
+    block.appendChild(block_div);
+
+    let block_span = document.createElement('span');
+    block_span.innerHTML = message;
+    block.appendChild(block_span);
+
+    document.getElementById('chat').appendChild(block);
+}
+

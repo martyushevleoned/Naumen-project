@@ -13,7 +13,7 @@ public class ProjectDto {
 
     Iterable<TaskDto> tasks;
 
-    Iterable<MemberDto> members;
-
     Iterable<MessageDto> messages;
+
+    Iterable<MemberDto> members;
 }

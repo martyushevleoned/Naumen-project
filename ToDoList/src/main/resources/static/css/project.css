@@ -37,7 +37,12 @@ div.task {
 div.chat {
 	overflow-y:
 	scroll;
-	height:400px;
+	height: 400px;
+}
+
+div.messenger{
+	flex-basis: var(--width-basis);
+	flex-shrink: 1;
 }
 
 
