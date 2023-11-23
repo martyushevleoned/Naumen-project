@@ -1,5 +1,6 @@
 package com.example.todolist.service;
 
+import com.example.todolist.model.dto.projectPage.MemberDto;
 import com.example.todolist.model.dto.projectPage.MessageDto;
 import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.dto.projectPage.TaskDto;
@@ -52,12 +53,17 @@ public class ProjectService {
         });
         Collections.reverse(messages);
 
+        List<MemberDto> members = new ArrayList<>();
+        project.getMembers().forEach( m -> {
+            members.add(new MemberDto(m.getId(), m.getUser().getUsername()));
+        });
+
         return new ProjectDto(
                 project.getId(),
                 project.getName(),
                 tasks,
                 messages,
-                new ArrayList<>()
+                members
         );
     }
 

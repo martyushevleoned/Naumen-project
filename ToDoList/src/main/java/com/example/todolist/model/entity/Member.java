@@ -1,9 +1,13 @@
 package com.example.todolist.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "members")
+@Data
+@NoArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +17,6 @@ public class Member {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "chatId", foreignKey = @ForeignKey(name = "MEM_PRJ_FK"))
+    @JoinColumn(name = "projectId", foreignKey = @ForeignKey(name = "MEM_PRJ_FK"))
     private Project project;
 }

@@ -64,7 +64,7 @@
     </block>
   </div>
   <div class="messenger">
-    <div class="content chat" id="chat">
+    <div class="content panel" id="chat">
       <span>end of chat</span>
       <block th:each="message,i: ${project.messages}" th:id="${project.messages[i.index].id}">
         <div class="no-padding"></div>
@@ -77,6 +77,24 @@
     <div class="content no-padding">
       <button onclick="newMessage()">
         send
+      </button>
+    </div>
+
+    <div class="content panel" id="memberList">
+      <span>
+        <span class="center" sec:authentication="name"></span>
+      </span>
+      <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
+        <div class="no-padding"></div>
+        <span th:text="${member.username}"></span>
+      </block>
+    </div>
+    <div class="content no-padding">
+      <input placeholder="username" value="username" id="username">
+    </div>
+    <div class="content no-padding">
+      <button onclick="">
+        add user
       </button>
     </div>
   </div>

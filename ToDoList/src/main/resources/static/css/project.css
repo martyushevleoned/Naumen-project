@@ -34,10 +34,10 @@ div.task {
 	flex-basis: var(--width-basis);
 }
 
-div.chat {
+div.panel {
 	overflow-y:
 	scroll;
-	height: 400px;
+	height: 200px;
 }
 
 div.messenger{
