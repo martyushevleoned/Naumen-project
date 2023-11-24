@@ -99,3 +99,28 @@ function addMessage(message, id) {
     document.getElementById('chat').appendChild(block);
 }
 
+// ================================================
+
+async function newMember(){
+
+    let token = document.getElementById('token').value;
+    let project = document.getElementById('projectId').value;
+    let username = document.getElementById('username').value;
+
+    addMember(username, 1);
+}
+
+function addMember(username, id){
+        let block = document.createElement('block');
+        block.id = id;
+
+        let block_div = document.createElement('div');
+        block_div.className = 'content no-padding';
+        block.appendChild(block_div);
+
+        let block_span = document.createElement('span');
+        block_span.innerHTML = username;
+        block.appendChild(block_span);
+
+        document.getElementById('memberList').appendChild(block);
+}

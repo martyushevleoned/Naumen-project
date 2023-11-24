@@ -2,6 +2,7 @@ package com.example.todolist.controller;
 
 import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.entity.User;
+import com.example.todolist.service.MemberService;
 import com.example.todolist.service.MessageService;
 import com.example.todolist.service.ProjectService;
 import com.example.todolist.service.TaskService;
@@ -25,6 +26,9 @@ public class ProjectController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MemberService memberService;
 
     @GetMapping("/project/{id}")
     public String addProject(@AuthenticationPrincipal User user,
@@ -59,5 +63,14 @@ public class ProjectController {
                            @RequestParam String text) {
 
         return messageService.addMessage(user, projectId, text);
+    }
+
+    @ResponseBody
+    @GetMapping("/project/add/member")
+    public Boolean addMember(@AuthenticationPrincipal User user,
+                             @RequestParam Long projectId,
+                             @RequestParam String username) {
+
+        return memberService.addMember(user, projectId, username);
     }
 }

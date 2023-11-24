@@ -37,7 +37,7 @@ div.task {
 div.panel {
 	overflow-y:
 	scroll;
-	height: 200px;
+	max-height: 500px;
 }
 
 div.messenger{
