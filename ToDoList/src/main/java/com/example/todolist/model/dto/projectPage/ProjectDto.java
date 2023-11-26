@@ -18,4 +18,6 @@ public class ProjectDto {
     Iterable<MemberDto> members;
 
     String ownerName;
+
+    Boolean isOwner;
 }

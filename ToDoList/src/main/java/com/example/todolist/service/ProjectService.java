@@ -24,16 +24,6 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Iterable<ProjectCardDto> getAllProjects(User user) {
-        List<ProjectCardDto> projectCardDtos = new ArrayList<>();
-
-        userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
-            projectCardDtos.add(new ProjectCardDto(p.getId(), p.getName(), p.getTasks().size()));
-        });
-
-        return projectCardDtos;
-    }
-
     public Long addProject(User user, String projectName) {
 
         Date date = new Date();

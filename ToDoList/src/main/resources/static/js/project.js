@@ -85,6 +85,9 @@ async function newMessage() {
 
 function addMessage(message, id) {
 
+    if (id == 0)
+        return;
+
     let block = document.createElement('block');
     block.id = id;
 

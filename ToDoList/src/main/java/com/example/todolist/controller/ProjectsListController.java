@@ -1,6 +1,7 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.model.entity.User;
+import com.example.todolist.service.DtoService;
 import com.example.todolist.service.ProjectService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,12 @@ public class ProjectsListController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private DtoService dtoService;
+
     @GetMapping("/projects")
     public String projects(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("projects", projectService.getAllProjects(user));
+        model.addAttribute("projects", dtoService.getMyProjects(user));
         return "projectList";
     }
 

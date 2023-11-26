@@ -38,14 +38,16 @@
     <div class="content">
       <span th:text="${project.name}"></span>
     </div>
-    <div class="content no-padding">
-      <input placeholder="task name" value="task Name" id="taskName">
-    </div>
-    <div class="content no-padding">
-      <button onclick="newTask()">
-        add task
-      </button>
-    </div>
+    <block th:if="${project.isOwner}">
+      <div class="content no-padding">
+        <input placeholder="task name" value="task Name" id="taskName">
+      </div>
+      <div class="content no-padding">
+        <button onclick="newTask()">
+          add task
+        </button>
+      </div>
+    </block>
   </div>
 </div>
 <div class="body" id="body">
@@ -55,11 +57,13 @@
         <div class="content">
           <span th:text="${task.text}"></span>
         </div>
-        <div class="content no-padding">
-          <button th:onclick="'deleteTask(' + ${task.id} + ')'">
-            delete
-          </button>
-        </div>
+        <block th:if="${project.isOwner}">
+          <div class="content no-padding">
+            <button th:onclick="'deleteTask(' + ${task.id} + ')'">
+              delete
+            </button>
+          </div>
+        </block>
       </div>
     </block>
   </div>
@@ -80,23 +84,28 @@
       </button>
     </div>
 
-    <div class="content panel" id="memberList">
-      <span>
-        <span class="center" th:text="${project.ownerName}"></span>
-      </span>
-      <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
-        <div class="no-padding"></div>
-        <span th:text="${member.username}"></span>
-      </block>
-    </div>
-    <div class="content no-padding">
-      <input placeholder="username" value="username" id="username">
-    </div>
-    <div class="content no-padding">
-      <button onclick="newMember()">
-        add user
-      </button>
-    </div>
+    <block th:if="${project.isOwner}">
+
+        <div class="content panel" id="memberList">
+          <span>
+            <span class="center" th:text="${project.ownerName}"></span>
+          </span>
+          <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
+            <div class="no-padding"></div>
+            <span th:text="${member.username}"></span>
+          </block>
+        </div>
+        <div class="content no-padding">
+          <input placeholder="username" value="username" id="username">
+        </div>
+        <div class="content no-padding">
+          <button onclick="newMember()">
+            add user
+          </button>
+        </div>
+
+    </block>
+
   </div>
 </div>
 </body>
