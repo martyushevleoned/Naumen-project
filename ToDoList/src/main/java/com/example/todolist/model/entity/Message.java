@@ -2,13 +2,14 @@ package com.example.todolist.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "messages")
-@Data
+@Getter
 @NoArgsConstructor
 public class Message {
 
@@ -30,4 +31,11 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date creationDateTime;
+
+    public Message(User user, String text, Project project, Date creationDateTime) {
+        this.user = user;
+        this.text = text;
+        this.project = project;
+        this.creationDateTime = creationDateTime;
+    }
 }

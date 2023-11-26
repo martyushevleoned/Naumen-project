@@ -1,11 +1,9 @@
-package com.example.todolist.service;
+package com.example.todolist.service.entityService;
 
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.Task;
 import com.example.todolist.model.entity.User;
-import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.TaskRepository;
-import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +15,14 @@ import java.util.Optional;
 public class TaskService {
 
     @Autowired
-    UserRepository userRepository;
+    private ProjectService projectService;
 
     @Autowired
-    ProjectRepository projectRepository;
-
-    @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     public Long addTask(User user, Long projectId, String text){
 
-        Optional<Project> projectDB = projectRepository.findById(projectId);
+        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
         if (projectDB.isEmpty())
             return null;
 
@@ -37,11 +32,7 @@ public class TaskService {
             return null;
 
         Date date = new Date();
-
-        Task task = new Task();
-        task.setText(text);
-        task.setProject(project);
-        task.setCreationDateTime(date);
+        Task task = new Task(text,date, project);
         taskRepository.save(task);
 
         return taskRepository.findByProjectAndTextAndDatetime(project,text,date).get(0).getId();

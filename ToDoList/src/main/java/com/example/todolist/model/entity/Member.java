@@ -1,12 +1,12 @@
 package com.example.todolist.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "members")
-@Data
+@Getter
 @NoArgsConstructor
 public class Member {
 
@@ -21,4 +21,9 @@ public class Member {
     @ManyToOne
     @JoinColumn(name = "projectId", foreignKey = @ForeignKey(name = "MEM_PRJ_FK"))
     private Project project;
+
+    public Member(User user, Project project) {
+        this.user = user;
+        this.project = project;
+    }
 }

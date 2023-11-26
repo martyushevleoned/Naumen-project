@@ -1,10 +1,9 @@
-package com.example.todolist.service;
+package com.example.todolist.service.entityService;
 
 import com.example.todolist.model.entity.Member;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MemberRepository;
-import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,20 +18,20 @@ public class MemberService {
     private UserRepository userRepository;
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private ProjectService projectService;
 
     public Long addMember(User user, Long projectId, String username){
 
 //        Проверка на существование проекта
-        Optional<Project> projectDB = projectRepository.findById(projectId);
+        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
         if (projectDB.isEmpty())
             return 0L;
 
-//        Проверка на доступ к добавлению пользователей
-        if (!Objects.equals(projectDB.get().getUser().getUsername(), user.getUsername()))
+//        Проверка на то что пользователь владелец проекта
+        if (!user.equals(projectDB.get().getUser()))
             return 0L;
 
 //        Проверка на существование добавляемого пользователя
@@ -48,9 +47,10 @@ public class MemberService {
         if (Objects.equals(user.getUsername(), username))
             return 0L;
 
-        Member member = new Member();
-        member.setUser(userDB.get());
-        member.setProject(projectDB.get());
+        Member member = new Member(
+                userDB.get(),
+                projectDB.get()
+        );
         memberRepository.save(member);
 
         return memberRepository.findByUserAndProject(userDB.get(), projectDB.get()).get(0).getUser().getId();

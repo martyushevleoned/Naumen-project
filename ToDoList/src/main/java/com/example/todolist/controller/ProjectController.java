@@ -2,6 +2,10 @@ package com.example.todolist.controller;
 
 import com.example.todolist.model.entity.User;
 import com.example.todolist.service.*;
+import com.example.todolist.service.entityService.MemberService;
+import com.example.todolist.service.entityService.MessageService;
+import com.example.todolist.service.entityService.ProjectService;
+import com.example.todolist.service.entityService.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,15 +33,13 @@ public class ProjectController {
     @Autowired
     private DtoService dtoService;
 
-    @Autowired
-    private AccessService accessService;
 
     @GetMapping("/project/{id}")
     public String addProject(@AuthenticationPrincipal User user,
                              @PathVariable Long id,
                              Model model) {
 
-        if (!accessService.haveAccess(user, id))
+        if (projectService.projectAccess(user, id).isEmpty())
             return "projectList";
 
         model.addAttribute("project", dtoService.getMyProject(user, id));

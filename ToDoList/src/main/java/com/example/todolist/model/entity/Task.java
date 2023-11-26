@@ -2,13 +2,14 @@ package com.example.todolist.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "tasks")
-@Data
+@Getter
 @NoArgsConstructor
 public class Task {
 
@@ -26,8 +27,9 @@ public class Task {
     @JoinColumn(name = "ProjectId", foreignKey = @ForeignKey(name = "PRJ_TSK_FK"))
     private Project project;
 
-    public Task(String text, Project project) {
+    public Task(String text, Date creationDateTime, Project project) {
         this.text = text;
+        this.creationDateTime = creationDateTime;
         this.project = project;
     }
 }

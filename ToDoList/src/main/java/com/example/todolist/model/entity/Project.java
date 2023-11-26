@@ -2,6 +2,7 @@ package com.example.todolist.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-@Data
+@Getter
 @NoArgsConstructor
 public class Project {
 
@@ -36,4 +37,10 @@ public class Project {
 
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     private List<Task> Tasks = new ArrayList<>();
+
+    public Project(String name, Date creationDateTime, User user) {
+        this.name = name;
+        this.creationDateTime = creationDateTime;
+        this.user = user;
+    }
 }
