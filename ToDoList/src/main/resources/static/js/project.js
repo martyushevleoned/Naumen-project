@@ -107,20 +107,43 @@ async function newMember(){
     let project = document.getElementById('projectId').value;
     let username = document.getElementById('username').value;
 
-    addMember(username, 1);
+    let url = new URL('http://localhost:8080/project/add/member');
+    let params = new URLSearchParams({
+    	_csrf: token,
+    	projectId: project,
+    	username: username
+    });
+
+    fetch(url + '?' + params).then(
+        r => r.text().then(id => addMember(username, id)),
+        r => alert('Ошибка HTTP: ' + r.status)
+    );
 }
 
+//    @ResponseBody
+//    @GetMapping("/project/add/member")
+//    public Boolean addMember(@AuthenticationPrincipal User user,
+//                             @RequestParam Long projectId,
+//                             @RequestParam String username) {
+//
+//        return memberService.addMember(user, projectId, username);
+//    }
+
 function addMember(username, id){
-        let block = document.createElement('block');
-        block.id = id;
 
-        let block_div = document.createElement('div');
-        block_div.className = 'content no-padding';
-        block.appendChild(block_div);
+    if (id == 0)
+        return;
 
-        let block_span = document.createElement('span');
-        block_span.innerHTML = username;
-        block.appendChild(block_span);
+    let block = document.createElement('block');
+    block.id = id;
 
-        document.getElementById('memberList').appendChild(block);
+    let block_div = document.createElement('div');
+    block_div.className = 'content no-padding';
+    block.appendChild(block_div);
+
+    let block_span = document.createElement('span');
+    block_span.innerHTML = username;
+    block.appendChild(block_span);
+
+    document.getElementById('memberList').appendChild(block);
 }

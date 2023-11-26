@@ -16,4 +16,6 @@ public class ProjectDto {
     Iterable<MessageDto> messages;
 
     Iterable<MemberDto> members;
+
+    String ownerName;
 }

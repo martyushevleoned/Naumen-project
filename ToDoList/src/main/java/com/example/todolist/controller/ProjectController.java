@@ -2,10 +2,7 @@ package com.example.todolist.controller;
 
 import com.example.todolist.model.dto.projectPage.ProjectDto;
 import com.example.todolist.model.entity.User;
-import com.example.todolist.service.MemberService;
-import com.example.todolist.service.MessageService;
-import com.example.todolist.service.ProjectService;
-import com.example.todolist.service.TaskService;
+import com.example.todolist.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -30,12 +27,18 @@ public class ProjectController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private ProjectDtoService projectDtoService;
+
     @GetMapping("/project/{id}")
     public String addProject(@AuthenticationPrincipal User user,
                              @PathVariable Long id,
                              Model model) {
 
-        model.addAttribute("project", projectService.getProjectInfo(user, id));
+        if (!projectDtoService.haveAccess(user, id))
+            return "projectList";
+
+        model.addAttribute("project", projectDtoService.getProjectInfo(user, id));
         return "project";
     }
 
@@ -67,7 +70,7 @@ public class ProjectController {
 
     @ResponseBody
     @GetMapping("/project/add/member")
-    public Boolean addMember(@AuthenticationPrincipal User user,
+    public Long addMember(@AuthenticationPrincipal User user,
                              @RequestParam Long projectId,
                              @RequestParam String username) {
 

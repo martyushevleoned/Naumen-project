@@ -37,6 +37,7 @@ div.task {
 div.panel {
 	overflow-y:
 	scroll;
+	min-height: 200px;
 	max-height: 500px;
 }
 

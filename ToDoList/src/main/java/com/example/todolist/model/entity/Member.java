@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "MEM_USR_FK"))
     private User user;

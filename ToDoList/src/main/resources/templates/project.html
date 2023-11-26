@@ -82,7 +82,7 @@
 
     <div class="content panel" id="memberList">
       <span>
-        <span class="center" sec:authentication="name"></span>
+        <span class="center" th:text="${project.ownerName}"></span>
       </span>
       <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
         <div class="no-padding"></div>

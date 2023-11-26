@@ -34,39 +34,6 @@ public class ProjectService {
         return projectCardDtos;
     }
 
-    public ProjectDto getProjectInfo(User user, Long id) {
-
-        Optional<Project> projectDB = projectRepository.findById(id);
-        if (projectDB.isEmpty())
-            return null;
-
-        Project project = projectDB.get();
-
-        List<TaskDto> tasks = new ArrayList<>();
-        project.getTasks().forEach(t -> {
-            tasks.add(new TaskDto(t.getId(), t.getText()));
-        });
-
-        List<MessageDto> messages = new ArrayList<>();
-        project.getMessages().forEach( m -> {
-            messages.add(new MessageDto(m.getId(), m.getText()));
-        });
-        Collections.reverse(messages);
-
-        List<MemberDto> members = new ArrayList<>();
-        project.getMembers().forEach( m -> {
-            members.add(new MemberDto(m.getId(), m.getUser().getUsername()));
-        });
-
-        return new ProjectDto(
-                project.getId(),
-                project.getName(),
-                tasks,
-                messages,
-                members
-        );
-    }
-
     public Long addProject(User user, String projectName) {
 
         Date date = new Date();
