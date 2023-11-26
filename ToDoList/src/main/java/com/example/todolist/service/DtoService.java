@@ -7,6 +7,7 @@ import com.example.todolist.model.dto.projectPage.TaskDto;
 import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
+import com.example.todolist.model.repository.MemberRepository;
 import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class DtoService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     public ProjectDto getMyProject(User user, Long id) {
 
@@ -65,6 +69,16 @@ public class DtoService {
 
         userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {
             projectCardDtos.add(new ProjectCardDto(p.getId(), p.getName(), p.getTasks().size()));
+        });
+
+        return projectCardDtos;
+    }
+
+    public Iterable<ProjectCardDto> getForeignProjects(User user) {
+        List<ProjectCardDto> projectCardDtos = new ArrayList<>();
+
+        memberRepository.findByUser(user).forEach(m -> {
+            projectCardDtos.add(new ProjectCardDto(m.getProject().getId(), m.getProject().getName(), m.getProject().getTasks().size()));
         });
 
         return projectCardDtos;

@@ -68,6 +68,25 @@
             </div>
         </form>
     </div>
+
+    <div class="body-content" th:each="project,i: ${foreignProjects}" th:id="${foreignProjects[i.index].id}">
+        <div class="content">
+            <span th:text="${project.name}"></span>
+        </div>
+        <div class="content">
+            <span>
+                <span class="center" th:text="${project.countOfTasks}"></span>
+                <span class="center"> tasks</span>
+            </span>
+        </div>
+        <form th:action="@{/project/{path}(path=${project.id})}" method="get">
+            <div class="content no-padding">
+                <button type="submit">
+                    open
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

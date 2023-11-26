@@ -12,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("SELECT m FROM Member m WHERE m.user = ?1 AND m.project = ?2")
     List<Member> findByUserAndProject(User user, Project project);
+
+    List<Member> findByUser(User user);
 }
