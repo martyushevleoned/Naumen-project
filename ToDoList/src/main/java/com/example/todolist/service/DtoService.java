@@ -51,7 +51,7 @@ public class DtoService {
 
         List<MemberDto> members = new ArrayList<>();
         project.getMembers().forEach(m -> {
-            members.add(new MemberDto(m.getId(), m.getUser().getUsername()));
+            members.add(new MemberDto(m.getUser().getId(), m.getUser().getUsername()));
         });
         members.sort(Comparator.comparing(MemberDto::getUsername));
 
