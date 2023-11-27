@@ -2,6 +2,7 @@ package com.example.todolist.controller;
 
 import com.example.todolist.model.entity.User;
 import com.example.todolist.service.DtoService;
+import com.example.todolist.service.entityService.MemberService;
 import com.example.todolist.service.entityService.ProjectService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class ProjectsListController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private DtoService dtoService;
@@ -41,5 +45,13 @@ public class ProjectsListController {
                               @RequestParam Long id) {
 
         projectService.deleteProject(user, id);
+    }
+
+    @ResponseBody
+    @GetMapping("/projects/delete/member")
+    public void deleteMember(@AuthenticationPrincipal User user,
+                             @RequestParam Long id) {
+
+        memberService.deleteMember(user, id);
     }
 }

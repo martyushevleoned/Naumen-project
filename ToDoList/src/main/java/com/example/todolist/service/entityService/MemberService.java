@@ -8,6 +8,7 @@ import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class MemberService {
     @Autowired
     private ProjectService projectService;
 
-    public Long addMember(User user, Long projectId, String username){
+    public Long addMember(User user, Long projectId, String username) {
 
 //        Проверка на существование проекта
         Optional<Project> projectDB = projectService.projectAccess(user, projectId);
@@ -54,5 +55,15 @@ public class MemberService {
         memberRepository.save(member);
 
         return memberRepository.findByUserAndProject(userDB.get(), projectDB.get()).get(0).getUser().getId();
+    }
+
+    public void deleteMember(User user, Long projectId) {
+        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
+        projectDB.ifPresent(project -> {
+            List<Member> members = memberRepository.findByUserAndProject(user, projectDB.get());
+
+            if (members.size() == 1)
+                memberRepository.delete(members.get(0));
+        });
     }
 }

@@ -26,7 +26,7 @@ function addProject(projectName, id) {
    let dp = document.createElement('div');
    dp.className = 'content no-padding';
    dp_bt = document.createElement('button');
-   dp_bt.innerHTML = 'delete';
+   dp_bt.innerHTML = 'delete project';
    dp_bt.onclick = function(){ deleteProject(id); };
    dp.appendChild(dp_bt);
 
@@ -76,4 +76,20 @@ async function deleteProject(projectId) {
 
 function hideProject(id) {
     document.getElementById(id).remove();
+}
+
+async function deleteMember(projectId) {
+
+    let token = document.getElementById('token').value;
+
+	let url = new URL('http://localhost:8080/projects/delete/member');
+    let params = new URLSearchParams({
+    	_csrf: token,
+    	id: projectId
+    });
+
+    fetch(url + '?' + params).then(
+        hideProject(projectId),
+        r => alert('Ошибка HTTP: ' + r.status)
+    );
 }
