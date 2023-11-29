@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../static/css/input.css">
     <link rel="stylesheet" href="../static/css/flex.css">
     <link rel="stylesheet" href="../static/css/span.css">
+    <link rel="stylesheet" href="../static/css/projectList.css">
     <script type="text/javascript" src="../static/js/projectList.js"></script>
 </head>
 <body>
@@ -45,6 +46,13 @@
     </div>
 </div>
 <div class="body" id="body">
+    <div class="title">
+        <div class="content">
+            <span>
+                My projects
+            </span>
+        </div>
+    </div>
     <div class="body-content" th:each="project,i: ${projects}" th:id="${projects[i.index].id}">
         <div class="content">
             <span th:text="${project.name}"></span>
@@ -70,6 +78,13 @@
     </div>
 </div>
 <div class="body">
+    <div class="title">
+        <div class="content">
+            <span>
+                Foreign projects
+            </span>
+        </div>
+    </div>
     <div class="body-content" th:each="project,i: ${foreignProjects}" th:id="${foreignProjects[i.index].id}">
         <div class="content">
             <span th:text="${project.name}"></span>
