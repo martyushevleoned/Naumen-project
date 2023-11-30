@@ -4,6 +4,9 @@ async function newTask() {
     let project = document.getElementById('projectId').value;
     let task = document.getElementById('taskName').value;
 
+    if (task == '')
+        return;
+
 	let url = new URL('http://localhost:8080/project/add/task');
     let params = new URLSearchParams({
     	_csrf: token,
@@ -15,6 +18,8 @@ async function newTask() {
         r => r.text().then(id => addTask(task, id)),
         r => alert('Ошибка HTTP: ' + r.status)
     );
+
+    document.getElementById('taskName').value = '';
 }
 
 function addTask(taskText, id) {
@@ -69,6 +74,8 @@ async function newMessage() {
     let project = document.getElementById('projectId').value;
     let message = document.getElementById('message').value;
 
+    if (message == '')
+        return;
 
 	let url = new URL('http://localhost:8080/project/add/message');
     let params = new URLSearchParams({
@@ -81,6 +88,8 @@ async function newMessage() {
         r => r.text().then(id => addMessage(message, id)),
         r => alert('Ошибка HTTP: ' + r.status)
     );
+
+    document.getElementById('message').value = '';
 }
 
 function addMessage(message, id) {
@@ -110,6 +119,9 @@ async function newMember(){
     let project = document.getElementById('projectId').value;
     let username = document.getElementById('username').value;
 
+    if (username == '')
+        return;
+
     let url = new URL('http://localhost:8080/project/add/member');
     let params = new URLSearchParams({
     	_csrf: token,
@@ -121,16 +133,9 @@ async function newMember(){
         r => r.text().then(id => addMember(username, id)),
         r => alert('Ошибка HTTP: ' + r.status)
     );
-}
 
-//    @ResponseBody
-//    @GetMapping("/project/add/member")
-//    public Boolean addMember(@AuthenticationPrincipal User user,
-//                             @RequestParam Long projectId,
-//                             @RequestParam String username) {
-//
-//        return memberService.addMember(user, projectId, username);
-//    }
+    document.getElementById('username').value = '';
+}
 
 function addMember(username, id){
 

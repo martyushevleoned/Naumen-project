@@ -3,6 +3,9 @@ async function newProject() {
     let token = document.getElementById('token').value;
     let project = document.getElementById('projectName').value;
 
+    if (project == '')
+        return;
+
 	let url = new URL('http://localhost:8080/projects/add');
     let params = new URLSearchParams({
     	_csrf: token,
@@ -13,6 +16,8 @@ async function newProject() {
         r => r.text().then(id => addProject(project, id)),
         r => alert('Ошибка HTTP: ' + r.status)
     );
+
+    document.getElementById('projectName').value = '';
 }
 
 function addProject(projectName, id) {

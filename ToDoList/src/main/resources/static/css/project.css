@@ -6,6 +6,7 @@ div.tasks, div.messenger{
 
 div.tasks {
 	flex-basis: 60%;
+	min-height: calc(var(--font-size) + var(--default-padding) * 2 + 3px);
 }
 
 block.container {
