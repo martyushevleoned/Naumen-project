@@ -110,4 +110,34 @@
   </div>
 </div>
 </body>
+<script>
+  document.getElementById('taskName').onkeypress = function(e){
+  if (!e) e = window.event;
+  var keyCode = e.code || e.key;
+  if (keyCode == 'Enter'){
+    newTask();
+    return false;
+  }
+  }
+</script>
+<script>
+  document.getElementById('message').onkeypress = function(e){
+  if (!e) e = window.event;
+  var keyCode = e.code || e.key;
+  if (keyCode == 'Enter'){
+    newMessage();
+    return false;
+  }
+  }
+</script>
+<script>
+  document.getElementById('username').onkeypress = function(e){
+  if (!e) e = window.event;
+  var keyCode = e.code || e.key;
+  if (keyCode == 'Enter'){
+    newMember();
+    return false;
+  }
+  }
+</script>
 </html>
