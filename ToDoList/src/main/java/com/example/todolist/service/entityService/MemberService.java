@@ -34,6 +34,7 @@ public class MemberService {
         if (!projectService.haveAccess(user.getUsername(), projectId))
             return 0L;
 
+//        Достаём используемые сущности из бд
         User userDB = userRepository.findByUsername(user.getUsername());
         Project projectDB = projectRepository.getReferenceById(projectId);
 
@@ -66,11 +67,16 @@ public class MemberService {
     }
 
     public void deleteMember(User user, Long projectId) {
-        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
 
-        projectDB.ifPresent(project -> {
-            Member member = memberRepository.getReferenceById(new MemberId(user.getId(), projectDB.get().getId()));
-            memberRepository.delete(member);
-        });
+//        Проверка на доступ к проекту и существование сущностей
+        if (!projectService.haveAccess(user.getUsername(), projectId))
+            return;
+
+//        Достаём используемые сущности из бд
+        User userDB = userRepository.findByUsername(user.getUsername());
+        Project projectDB = projectRepository.getReferenceById(projectId);
+
+//        Удаляем сущность из БД
+        memberRepository.deleteById(new MemberId(userDB.getId(), projectDB.getId()));
     }
 }

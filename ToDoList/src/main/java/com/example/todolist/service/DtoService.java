@@ -8,6 +8,7 @@ import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MemberRepository;
+import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;
 import com.example.todolist.service.entityService.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,15 @@ public class DtoService {
     @Autowired
     private ProjectService projectService;
 
-    public ProjectDto getProject(User user, Long id) {
+    @Autowired
+    private ProjectRepository projectRepository;
 
+    public ProjectDto getProject(User user, Long projectId) {
 
-        Optional<Project> projectDB = projectService.projectAccess(user, id);
-        if (projectDB.isEmpty())
+        if (!projectService.haveAccess(user.getUsername(), projectId))
             return null;
 
-        Project project = projectDB.get();
+        Project project = projectRepository.getReferenceById(projectId);
 
         List<TaskDto> tasks = new ArrayList<>();
         project.getTasks().forEach(t -> {
@@ -54,7 +56,7 @@ public class DtoService {
         });
         members.sort(Comparator.comparing(MemberDto::getUsername));
 
-        Boolean isOwner = (Objects.equals(projectDB.get().getUser().getUsername(), user.getUsername()));
+        Boolean isOwner = project.getUser().equals(user);
 
         return new ProjectDto(
                 project.getId(),
@@ -67,7 +69,7 @@ public class DtoService {
         );
     }
 
-    public Iterable<ProjectCardDto> getMyProjects(User user) {
+    public Iterable<ProjectCardDto> getProjectList(User user) {
         List<ProjectCardDto> projectCardDtos = new ArrayList<>();
 
         userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {

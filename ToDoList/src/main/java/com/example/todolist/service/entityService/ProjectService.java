@@ -47,28 +47,6 @@ public class ProjectService {
         });
     }
 
-    public Optional<Project> projectAccess(User user, Long projectId) {
-
-        Optional<Project> projectDB = projectRepository.findById(projectId);
-
-//        Проект не существует
-        if (projectDB.isEmpty())
-            return Optional.empty();
-
-//        Обращается владелец проекта
-        if (projectDB.get().getUser().equals(user))
-            return projectDB;
-
-//        Обращается пользователь имеющий доступ
-        for (Member m : projectDB.get().getMembers())
-            if (m.getUser().equals(user))
-                return projectDB;
-
-//        Пользователь не имеет доступа к проекту
-        return Optional.empty();
-    }
-
-
 //    Данная функция проверяет является ли пользователь участником проекта
     public boolean haveAccess(String username, Long projectId) {
 
