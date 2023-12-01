@@ -1,4 +1,4 @@
-div.tasks, div.messenger{
+div.tasks{
 	background-color: var(--block-color);
 	flex-grow: 1;
 	min-width: var(--width-basis);
@@ -33,9 +33,15 @@ div.panel {
 	border-bottom-right-radius: 0;
 }
 
-div.messenger{
+block.messenger{
+    min-width: calc(var(--width-basis) * 1.4);
 	flex-basis: var(--width-basis);
 	flex-shrink: 1;
+    flex-grow: 1;
+}
+
+div.menu {
+    background-color: var(--block-color);
 }
 
 

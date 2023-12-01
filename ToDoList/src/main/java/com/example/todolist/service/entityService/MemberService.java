@@ -1,6 +1,7 @@
 package com.example.todolist.service.entityService;
 
 import com.example.todolist.model.entity.Member;
+import com.example.todolist.model.entity.MemberId;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MemberRepository;
@@ -8,7 +9,6 @@ import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,29 +41,30 @@ public class MemberService {
             return 0L;
 
 //        Проверка на то что пользователь уже добавлен
-        if (memberRepository.findByUserAndProject(userDB.get(), projectDB.get()).size() != 0)
+        if (memberRepository.existsById(new MemberId(userDB.get().getId(), projectDB.get().getId())))
             return 0L;
 
 //        Проверка на попытку добавить себя в проект
         if (Objects.equals(user.getUsername(), username))
             return 0L;
 
+//        Добавляем в бд запись
         Member member = new Member(
                 userDB.get(),
                 projectDB.get()
         );
         memberRepository.save(member);
 
-        return memberRepository.findByUserAndProject(userDB.get(), projectDB.get()).get(0).getUser().getId();
+//        достаём из бд запись чтобы пихнуть в респонс id пользователя
+        return memberRepository.getReferenceById(new MemberId(userDB.get().getId(), projectDB.get().getId())).getUser().getId();
     }
 
     public void deleteMember(User user, Long projectId) {
         Optional<Project> projectDB = projectService.projectAccess(user, projectId);
-        projectDB.ifPresent(project -> {
-            List<Member> members = memberRepository.findByUserAndProject(user, projectDB.get());
 
-            if (members.size() == 1)
-                memberRepository.delete(members.get(0));
+        projectDB.ifPresent(project -> {
+            Member member = memberRepository.getReferenceById(new MemberId(user.getId(), projectDB.get().getId()));
+            memberRepository.delete(member);
         });
     }
 }

@@ -42,7 +42,7 @@ public class ProjectController {
         if (projectService.projectAccess(user, id).isEmpty())
             return "projectList";
 
-        model.addAttribute("project", dtoService.getMyProject(user, id));
+        model.addAttribute("project", dtoService.getProject(user, id));
         return "project";
     }
 

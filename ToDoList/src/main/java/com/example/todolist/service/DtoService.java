@@ -8,7 +8,6 @@ import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MemberRepository;
-import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;
 import com.example.todolist.service.entityService.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class DtoService {
     @Autowired
     private ProjectService projectService;
 
-    public ProjectDto getMyProject(User user, Long id) {
+    public ProjectDto getProject(User user, Long id) {
 
 
         Optional<Project> projectDB = projectService.projectAccess(user, id);
