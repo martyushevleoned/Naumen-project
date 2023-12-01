@@ -5,6 +5,7 @@ import com.example.todolist.model.entity.MemberId;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MemberRepository;
+import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class MemberService {
     private UserRepository userRepository;
 
     @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
@@ -26,37 +30,39 @@ public class MemberService {
 
     public Long addMember(User user, Long projectId, String username) {
 
-//        Проверка на существование проекта
-        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
-        if (projectDB.isEmpty())
+//        Проверка на доступ к проекту и существование сущностей
+        if (!projectService.haveAccess(user.getUsername(), projectId))
+            return 0L;
+
+        User userDB = userRepository.findByUsername(user.getUsername());
+        Project projectDB = projectRepository.getReferenceById(projectId);
+
+//        Проверка на существование добавляемого пользователя
+        Optional<User> addUser = Optional.ofNullable(userRepository.findByUsername(username));
+        if (addUser.isEmpty())
             return 0L;
 
 //        Проверка на то что пользователь владелец проекта
-        if (!user.equals(projectDB.get().getUser()))
-            return 0L;
-
-//        Проверка на существование добавляемого пользователя
-        Optional<User> userDB = Optional.ofNullable(userRepository.findByUsername(username));
-        if (userDB.isEmpty())
+        if (!userDB.equals(projectDB.getUser()))
             return 0L;
 
 //        Проверка на то что пользователь уже добавлен
-        if (memberRepository.existsById(new MemberId(userDB.get().getId(), projectDB.get().getId())))
+        if (memberRepository.existsById(new MemberId(addUser.get().getId(), projectDB.getId())))
             return 0L;
 
 //        Проверка на попытку добавить себя в проект
-        if (Objects.equals(user.getUsername(), username))
+        if (Objects.equals(userDB.getUsername(), username))
             return 0L;
 
 //        Добавляем в бд запись
         Member member = new Member(
-                userDB.get(),
-                projectDB.get()
+                addUser.get(),
+                projectDB
         );
         memberRepository.save(member);
 
 //        достаём из бд запись чтобы пихнуть в респонс id пользователя
-        return memberRepository.getReferenceById(new MemberId(userDB.get().getId(), projectDB.get().getId())).getUser().getId();
+        return memberRepository.getReferenceById(new MemberId(addUser.get().getId(), projectDB.getId())).getUser().getId();
     }
 
     public void deleteMember(User user, Long projectId) {

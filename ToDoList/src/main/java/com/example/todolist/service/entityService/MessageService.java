@@ -4,11 +4,11 @@ import com.example.todolist.model.entity.Message;
 import com.example.todolist.model.entity.Project;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.MessageRepository;
+import com.example.todolist.model.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -16,21 +16,27 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @Autowired
     private ProjectService projectService;
 
     public Long addMessage(User user, Long projectId, String text){
 
-        Optional<Project> projectDB = projectService.projectAccess(user, projectId);
-        if (projectDB.isEmpty())
+//        Проверка на доступ к проекту и существование сущностей
+        if (!projectService.haveAccess(user.getUsername(), projectId))
             return 0L;
 
-        Project project = projectDB.get();
+        Project project = projectRepository.getReferenceById(projectId);
 
+//        Создание и сохранение сообщения в бд
         Date date = new Date();
         Message message = new Message(user, text, project, date);
         messageRepository.save(message);
 
+//        Получение id сообщения из бд
         return messageRepository.findByUserAndTextAndProjectAndDatetime(user, text, project, date).get(0).getId();
     }
 }

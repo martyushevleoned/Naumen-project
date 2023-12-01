@@ -39,7 +39,7 @@ public class ProjectController {
                              @PathVariable Long id,
                              Model model) {
 
-        if (projectService.projectAccess(user, id).isEmpty())
+        if (!projectService.haveAccess(user.getUsername(), id))
             return "projectList";
 
         model.addAttribute("project", dtoService.getProject(user, id));
