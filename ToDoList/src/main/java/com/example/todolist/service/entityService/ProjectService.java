@@ -1,13 +1,7 @@
 package com.example.todolist.service.entityService;
 
-import com.example.todolist.model.dto.projectPage.MemberDto;
-import com.example.todolist.model.dto.projectPage.MessageDto;
-import com.example.todolist.model.dto.projectPage.ProjectDto;
-import com.example.todolist.model.dto.projectPage.TaskDto;
-import com.example.todolist.model.dto.projectsListPage.ProjectCardDto;
 import com.example.todolist.model.entity.Member;
 import com.example.todolist.model.entity.Project;
-import com.example.todolist.model.entity.Task;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.UserRepository;

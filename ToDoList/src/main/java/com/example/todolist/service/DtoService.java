@@ -69,7 +69,7 @@ public class DtoService {
         );
     }
 
-    public Iterable<ProjectCardDto> getProjectList(User user) {
+    public Iterable<ProjectCardDto> getMyProjects(User user) {
         List<ProjectCardDto> projectCardDtos = new ArrayList<>();
 
         userRepository.getReferenceById(user.getId()).getProjects().forEach(p -> {

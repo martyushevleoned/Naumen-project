@@ -26,7 +26,7 @@ public class ProjectsListController {
 
     @GetMapping("/projects")
     public String projects(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("projects", dtoService.getProjectList(user));
+        model.addAttribute("projects", dtoService.getMyProjects(user));
         model.addAttribute("foreignProjects", dtoService.getForeignProjects(user));
         return "projectList";
     }
