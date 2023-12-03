@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
-    <title>My ToDo List</title>
-    <link rel="stylesheet" href="../static/css/base.css">
-    <link rel="stylesheet" href="../static/css/input.css">
-    <link rel="stylesheet" href="../static/css/flex.css">
-    <link rel="stylesheet" href="../static/css/project.css">
-    <link rel="stylesheet" href="../static/css/span.css">
-    <script type="text/javascript" src="../static/js/project.js"></script>
+  <title>My ToDo List</title>
+  <link rel="stylesheet" href="../static/css/base.css">
+  <link rel="stylesheet" href="../static/css/input.css">
+  <link rel="stylesheet" href="../static/css/flex.css">
+  <link rel="stylesheet" href="../static/css/project.css">
+  <link rel="stylesheet" href="../static/css/span.css">
+  <script type="text/javascript" src="../static/js/project.js"></script>
 </head>
 <body>
 <input th:value="${_csrf.token}" id="token" type="hidden">
 <input th:value="${project.id}" id="projectId" type="hidden">
 <div class="header">
-    <div class="header-content">
-        <div class="content">
+  <div class="header-content">
+    <div class="content">
       <span>
         <span class="center">Hello, </span>
         <span class="center" sec:authentication="name"></span>
       </span>
-        </div>
-        <form th:action="@{/logout}" method="post">
-            <div class="content no-padding">
-                <button type="submit">
-                    Sign Out
-                </button>
-            </div>
-        </form>
-        <form th:action="@{/projects}" method="get">
-            <div class="content no-padding">
-                <button type="submit">
-                    Projects
-                </button>
-            </div>
-        </form>
     </div>
-    <div class="header-content">
-        <div class="content">
-            <span th:text="${project.name}"></span>
-        </div>
-        <block th:if="${project.isOwner}">
-            <div class="content no-padding">
-                <input placeholder="task name" value="" id="taskName">
-            </div>
-            <div class="content no-padding">
-                <button onclick="newTask()">
-                    add task
-                </button>
-            </div>
-            <script>
+    <form th:action="@{/logout}" method="post">
+      <div class="content no-padding">
+        <button type="submit">
+          Sign Out
+        </button>
+      </div>
+    </form>
+    <form th:action="@{/projects}" method="get">
+      <div class="content no-padding">
+        <button type="submit">
+          Projects
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="header-content">
+    <div class="content">
+      <span th:text="${project.name}"></span>
+    </div>
+    <block th:if="${project.isOwner}">
+      <div class="content no-padding">
+        <input placeholder="task name" value="" id="taskName">
+      </div>
+      <div class="content no-padding">
+        <button onclick="newTask()">
+          add task
+        </button>
+      </div>
+      <script>
         document.getElementById('taskName').onkeypress = function(e){
         if (!e) e = window.event;
         var keyCode = e.code || e.key;
@@ -57,62 +57,77 @@
           return false;
         }
         }
-
-
-            </script>
-        </block>
-    </div>
+      </script>
+    </block>
+  </div>
 </div>
 <div class="body" id="body">
-    <div class="tasks">
-        <block class="container" id="container">
-            <div class="task no-padding" th:each="task,i: ${project.tasks}" th:id="${project.tasks[i.index].id}">
-                <div class="content">
-                    <span th:text="${task.text}"></span>
-                </div>
-                <block th:if="${project.isOwner}">
-                    <div class="content no-padding">
-                        <button th:onclick="'deleteTask(' + ${task.id} + ')'">
-                            delete
-                        </button>
-                    </div>
-                </block>
-            </div>
+  <div class="tasks">
+    <block class="container" id="container">
+      <div class="task no-padding" th:each="task,i: ${project.tasks}" th:id="${project.tasks[i.index].id}">
+        <div class="content">
+          <span th:text="${task.text}"></span>
+        </div>
+        <block th:if="${project.isOwner}">
+          <div class="content no-padding">
+            <button th:onclick="'deleteTask(' + ${task.id} + ')'">
+              delete
+            </button>
+          </div>
         </block>
+      </div>
+    </block>
+  </div>
+
+
+  <block class="messenger">
+    <div class="menu">
+      <div class="content">
+      <span>
+        Chat
+      </span>
+      </div>
+      <div class="content panel" id="chat">
+        <span>end of chat</span>
+        <block th:each="message,i: ${project.messages}" th:id="${project.messages[i.index].id}">
+          <div class="no-padding"></div>
+          <span th:text="${message.text}"></span>
+        </block>
+      </div>
+      <div class="content no-padding">
+        <input placeholder="message" value="" id="message">
+      </div>
+      <div class="content no-padding">
+        <button onclick="newMessage()">
+          send
+        </button>
+      </div>
     </div>
-
-
-    <block class="messenger">
-
-        <div class="menu">
-
-
-            <div class="content">
+    <div class="menu">
+      <div class="content">
       <span>
         Member List
       </span>
-            </div>
-
-            <div class="content panel" id="memberList">
+      </div>
+      <div class="content panel" id="memberList">
           <span>
             <span class="center" th:text="${project.ownerName}"></span>
           </span>
-                <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
-                    <div class="no-padding"></div>
-                    <span th:text="${member.username}"></span>
-                </block>
-            </div>
-
-            <block th:if="${project.isOwner}">
-                <div class="content no-padding">
-                    <input placeholder="username" value="" id="username">
-                </div>
-                <div class="content no-padding">
-                    <button onclick="newMember()">
-                        add user
-                    </button>
-                </div>
-                <script>
+        <block th:each="member,i: ${project.members}" th:id="${project.members[i.index].id}">
+          <div class="no-padding"></div>
+          <span th:text="${member.username}"></span>
+        </block>
+      </div>
+      <block th:if="${project.isOwner}">
+        <div class="content no-padding">
+          <input placeholder="username" value="" id="username">
+        </div>
+        <div class="content no-padding">
+          <button onclick="newMember()">
+            add user
+          </button>
+        </div>
+        <script>
           document.getElementById('username').onkeypress = function(e){
           if (!e) e = window.event;
           var keyCode = e.code || e.key;
@@ -121,39 +136,10 @@
             return false;
           }
           }
-
-
-                </script>
-            </block>
-
-        </div>
-
-        <div class="menu">
-
-
-            <div class="content">
-      <span>
-        Chat
-      </span>
-            </div>
-
-            <div class="content panel" id="chat">
-                <span>end of chat</span>
-                <block th:each="message,i: ${project.messages}" th:id="${project.messages[i.index].id}">
-                    <div class="no-padding"></div>
-                    <span th:text="${message.text}"></span>
-                </block>
-            </div>
-            <div class="content no-padding">
-                <input placeholder="message" value="" id="message">
-            </div>
-            <div class="content no-padding">
-                <button onclick="newMessage()">
-                    send
-                </button>
-            </div>
-        </div>
-    </block>
+        </script>
+      </block>
+    </div>
+  </block>
 </div>
 </body>
 
@@ -166,8 +152,6 @@
     return false;
   }
   }
-
-
 </script>
 
 </html>

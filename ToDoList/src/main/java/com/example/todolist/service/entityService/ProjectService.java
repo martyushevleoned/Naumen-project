@@ -30,15 +30,19 @@ public class ProjectService {
         return projectRepository.findIdByUserAndNameAndDatetime(user, projectName, date);
     }
 
-    public void deleteProject(User user, Long id) {
+    public boolean deleteProject(User user, Long id) {
+
+        Optional<Project> project = projectRepository.findById(id);
 
 //        Проверка на существование удаляемого проекта
-        projectRepository.findById(id).ifPresent(p -> {
-
+        if (project.isPresent())
 //            Проект будет удалён только если пользователь является его владельцем
-            if (p.getUser().equals(user))
-                projectRepository.delete(p);
-        });
+            if (project.get().getUser().equals(user)){
+                projectRepository.delete(project.get());
+                return true;
+            }
+
+        return false;
     }
 
 //    Данная функция проверяет является ли пользователь участником проекта

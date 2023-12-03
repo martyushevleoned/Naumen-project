@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -43,14 +44,18 @@ public class TaskService {
         return taskRepository.findIdByProjectAndTextAndDatetime(project, text, date);
     }
 
-    public void removeTask(User user, Long id) {
+    public boolean removeTask(User user, Long id) {
+
+        Optional<Task> task = taskRepository.findById(id);
 
 //        Проверяем существование задачи
-        taskRepository.findById(id).ifPresent(t -> {
-
+        if (task.isPresent())
 //            Удаляем задачу если пользователь является его владельцем
-            if (t.getProject().getUser().equals(user))
-                taskRepository.delete(t);
-        });
+            if (task.get().getProject().getUser().equals(user)){
+                taskRepository.deleteById(id);
+                return true;
+            }
+
+        return false;
     }
 }

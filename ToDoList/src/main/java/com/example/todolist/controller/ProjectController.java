@@ -7,6 +7,8 @@ import com.example.todolist.service.entityService.MessageService;
 import com.example.todolist.service.entityService.ProjectService;
 import com.example.todolist.service.entityService.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,36 +50,50 @@ public class ProjectController {
 
     @ResponseBody
     @GetMapping("/project/add/task")
-    public Long addTask(@AuthenticationPrincipal User user,
+    public ResponseEntity<Long> addTask(@AuthenticationPrincipal User user,
                         @RequestParam Long projectId,
                         @RequestParam String text) {
 
-        return taskService.addTask(user, projectId, text);
+        Long taskId = taskService.addTask(user, projectId, text);
+
+        if (taskId == null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(taskId);
     }
 
     @ResponseBody
     @GetMapping("/project/delete/task")
-    public void deleteTask(@AuthenticationPrincipal User user,
+    public ResponseEntity<String> deleteTask(@AuthenticationPrincipal User user,
                            @RequestParam Long taskId) {
 
-        taskService.removeTask(user, taskId);
+        if (taskService.removeTask(user, taskId))
+            return ResponseEntity.status(HttpStatus.OK).body("OK (CODE 200)\n");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("INTERNAL SERVER ERROR (CODE 500)\n");
     }
 
     @ResponseBody
     @GetMapping("/project/add/message")
-    public Long addMessage(@AuthenticationPrincipal User user,
+    public ResponseEntity<Long> addMessage(@AuthenticationPrincipal User user,
                            @RequestParam Long projectId,
                            @RequestParam String text) {
 
-        return messageService.addMessage(user, projectId, text);
+        Long messageId = messageService.addMessage(user, projectId, text);
+
+        if (messageId == null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(messageId);
     }
 
     @ResponseBody
     @GetMapping("/project/add/member")
-    public Long addMember(@AuthenticationPrincipal User user,
-                             @RequestParam Long projectId,
-                             @RequestParam String username) {
+    public ResponseEntity<Long> addMember(@AuthenticationPrincipal User user,
+                                            @RequestParam Long projectId,
+                                            @RequestParam String username) {
 
-        return memberService.addMember(user, projectId, username);
+        Long userId = memberService.addMember(user, projectId, username);
+
+        if (userId == null)
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(userId);
     }
 }

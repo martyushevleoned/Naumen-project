@@ -14,18 +14,18 @@ async function newTask() {
     	text: task
     });
 
+    console.log(url + '?' + params);
     fetch(url + '?' + params).then(
-        r => r.text().then(id => addTask(task, id)),
-        r => alert('Ошибка HTTP: ' + r.status)
+        response => {
+            if (response.ok)
+                response.text().then(id => addTask(task, id))
+        }
     );
 
     document.getElementById('taskName').value = '';
 }
 
 function addTask(taskText, id) {
-
-    if (id == null)
-        return;
 
     let task = document.createElement('div');
     task.className = 'task no-padding';
@@ -59,9 +59,12 @@ async function deleteTask(task) {
     	taskId: task
     });
 
+    console.log(url + '?' + params);
     fetch(url + '?' + params).then(
-        hideTask(task),
-        r => alert('Ошибка HTTP: ' + r.status)
+        response => {
+            if (response.ok)
+                hideTask(task)
+        }
     );
 }
 
@@ -87,18 +90,18 @@ async function newMessage() {
     	text: message
     });
 
+    console.log(url + '?' + params);
     fetch(url + '?' + params).then(
-        r => r.text().then(id => addMessage(message, id)),
-        r => alert('Ошибка HTTP: ' + r.status)
+        response => {
+            if (response.ok)
+                response.text().then(id => addMessage(message, id))
+        }
     );
 
     document.getElementById('message').value = '';
 }
 
 function addMessage(message, id) {
-
-    if (id == null)
-        return;
 
     let block = document.createElement('block');
     block.id = id;
@@ -132,18 +135,18 @@ async function newMember(){
     	username: username
     });
 
+    console.log(url + '?' + params);
     fetch(url + '?' + params).then(
-        r => r.text().then(id => addMember(username, id)),
-        r => alert('Ошибка HTTP: ' + r.status)
+        response => {
+            if (response.ok)
+                response.text().then(id => addMember(username, id))
+        }
     );
 
     document.getElementById('username').value = '';
 }
 
 function addMember(username, id){
-
-    if (id == null)
-        return;
 
     let block = document.createElement('block');
     block.id = id;

@@ -66,17 +66,24 @@ public class MemberService {
         return memberRepository.getReferenceById(new MemberId(addUser.get().getId(), projectDB.getId())).getUser().getId();
     }
 
-    public void deleteMember(User user, Long projectId) {
+    public boolean deleteMember(User user, Long projectId) {
 
 //        Проверка на доступ к проекту и существование сущностей
         if (!projectService.haveAccess(user.getUsername(), projectId))
-            return;
+            return false;
 
 //        Достаём используемые сущности из бд
         User userDB = userRepository.findByUsername(user.getUsername());
         Project projectDB = projectRepository.getReferenceById(projectId);
 
+        MemberId id = new MemberId(userDB.getId(), projectDB.getId());
+
+//        Проверяем существование сущности в бд
+        if (memberRepository.findById(id).isEmpty())
+            return false;
+
 //        Удаляем сущность из БД
-        memberRepository.deleteById(new MemberId(userDB.getId(), projectDB.getId()));
+        memberRepository.deleteById(id);
+        return true;
     }
 }
