@@ -42,16 +42,16 @@ public class ProjectsListController {
     @ResponseBody
     @GetMapping("/projects/delete")
     public void deleteProject(@AuthenticationPrincipal User user,
-                              @RequestParam Long id) {
+                              @RequestParam Long projectId) {
 
-        projectService.deleteProject(user, id);
+        projectService.deleteProject(user, projectId);
     }
 
     @ResponseBody
     @GetMapping("/projects/delete/member")
     public void deleteMember(@AuthenticationPrincipal User user,
-                             @RequestParam Long id) {
+                             @RequestParam Long projectId) {
 
-        memberService.deleteMember(user, id);
+        memberService.deleteMember(user, projectId);
     }
 }

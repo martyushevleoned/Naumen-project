@@ -9,6 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository <Task, Long> {
-    @Query("SELECT t FROM Task t WHERE t.project = ?1 AND t.text = ?2 AND t.creationDateTime = ?3")
-    List<Task> findByProjectAndTextAndDatetime(Project project, String text, Date creationDateTime);
+    @Query("SELECT t.id FROM Task t WHERE t.project = ?1 AND t.text = ?2 AND t.creationDateTime = ?3  ORDER BY t.id LIMIT 1")
+    Long findIdByProjectAndTextAndDatetime(Project project, String text, Date creationDateTime);
 }

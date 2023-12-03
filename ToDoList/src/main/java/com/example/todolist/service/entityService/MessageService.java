@@ -27,7 +27,7 @@ public class MessageService {
 
 //        Проверка на доступ к проекту и существование сущностей
         if (!projectService.haveAccess(user.getUsername(), projectId))
-            return 0L;
+            return null;
 
         Project project = projectRepository.getReferenceById(projectId);
 
@@ -37,6 +37,6 @@ public class MessageService {
         messageRepository.save(message);
 
 //        Получение id сообщения из бд
-        return messageRepository.findByUserAndTextAndProjectAndDatetime(user, text, project, date).get(0).getId();
+        return messageRepository.findIdByUserAndTextAndProjectAndDatetime(user, text, project, date);
     }
 }

@@ -35,7 +35,7 @@ public class ProjectController {
 
 
     @GetMapping("/project/{id}")
-    public String addProject(@AuthenticationPrincipal User user,
+    public String getProject(@AuthenticationPrincipal User user,
                              @PathVariable Long id,
                              Model model) {
 
@@ -58,9 +58,9 @@ public class ProjectController {
     @ResponseBody
     @GetMapping("/project/delete/task")
     public void deleteTask(@AuthenticationPrincipal User user,
-                           @RequestParam Long id) {
+                           @RequestParam Long taskId) {
 
-        taskService.removeTask(user, id);
+        taskService.removeTask(user, taskId);
     }
 
     @ResponseBody

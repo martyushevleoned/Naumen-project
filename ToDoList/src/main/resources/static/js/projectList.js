@@ -22,6 +22,9 @@ async function newProject() {
 
 function addProject(projectName, id) {
 
+    if (id == null)
+        return;
+
    let pn = document.createElement('div');
    pn.className = 'content';
    pn_sp = document.createElement('span');
@@ -63,18 +66,18 @@ function addProject(projectName, id) {
 }
 
 
-async function deleteProject(projectId) {
+async function deleteProject(project) {
 
     let token = document.getElementById('token').value;
 
 	let url = new URL('http://localhost:8080/projects/delete');
     let params = new URLSearchParams({
     	_csrf: token,
-    	id: projectId
+    	projectId: project
     });
 
     fetch(url + '?' + params).then(
-        hideProject(projectId),
+        hideProject(project),
         r => alert('Ошибка HTTP: ' + r.status)
     );
 }
@@ -83,18 +86,18 @@ function hideProject(id) {
     document.getElementById(id).remove();
 }
 
-async function deleteMember(projectId) {
+async function deleteMember(project) {
 
     let token = document.getElementById('token').value;
 
 	let url = new URL('http://localhost:8080/projects/delete/member');
     let params = new URLSearchParams({
     	_csrf: token,
-    	id: projectId
+    	projectId: project
     });
 
     fetch(url + '?' + params).then(
-        hideProject(projectId),
+        hideProject(project),
         r => alert('Ошибка HTTP: ' + r.status)
     );
 }

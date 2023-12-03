@@ -24,6 +24,9 @@ async function newTask() {
 
 function addTask(taskText, id) {
 
+    if (id == null)
+        return;
+
     let task = document.createElement('div');
     task.className = 'task no-padding';
     task.id = id;
@@ -46,18 +49,18 @@ function addTask(taskText, id) {
     document.getElementById('container').appendChild(task);
 }
 
-async function deleteTask(taskId) {
+async function deleteTask(task) {
 
     let token = document.getElementById('token').value;
 
 	let url = new URL('http://localhost:8080/project/delete/task');
     let params = new URLSearchParams({
     	_csrf: token,
-    	id: taskId
+    	taskId: task
     });
 
     fetch(url + '?' + params).then(
-        hideTask(taskId),
+        hideTask(task),
         r => alert('Ошибка HTTP: ' + r.status)
     );
 }
@@ -94,7 +97,7 @@ async function newMessage() {
 
 function addMessage(message, id) {
 
-    if (id == 0)
+    if (id == null)
         return;
 
     let block = document.createElement('block');
@@ -139,7 +142,7 @@ async function newMember(){
 
 function addMember(username, id){
 
-    if (id == 0)
+    if (id == null)
         return;
 
     let block = document.createElement('block');

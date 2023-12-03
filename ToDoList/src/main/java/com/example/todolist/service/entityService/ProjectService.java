@@ -26,8 +26,8 @@ public class ProjectService {
         Project project = new Project(projectName, date, user);
         projectRepository.save(project);
 
-//        Достаём id проекта толькочто созданной записи
-        return projectRepository.findByUserAndNameAndDatetime(user, projectName, date).get(0).getId();
+//        Достаём id проекта только что созданной записи
+        return projectRepository.findIdByUserAndNameAndDatetime(user, projectName, date);
     }
 
     public void deleteProject(User user, Long id) {

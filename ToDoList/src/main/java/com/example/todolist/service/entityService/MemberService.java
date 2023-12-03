@@ -32,7 +32,7 @@ public class MemberService {
 
 //        Проверка на доступ к проекту и существование сущностей
         if (!projectService.haveAccess(user.getUsername(), projectId))
-            return 0L;
+            return null;
 
 //        Достаём используемые сущности из бд
         User userDB = userRepository.findByUsername(user.getUsername());
@@ -41,19 +41,19 @@ public class MemberService {
 //        Проверка на существование добавляемого пользователя
         Optional<User> addUser = Optional.ofNullable(userRepository.findByUsername(username));
         if (addUser.isEmpty())
-            return 0L;
+            return null;
 
 //        Проверка на то что пользователь владелец проекта
         if (!userDB.equals(projectDB.getUser()))
-            return 0L;
+            return null;
 
 //        Проверка на то что пользователь уже добавлен
         if (memberRepository.existsById(new MemberId(addUser.get().getId(), projectDB.getId())))
-            return 0L;
+            return null;
 
 //        Проверка на попытку добавить себя в проект
         if (Objects.equals(userDB.getUsername(), username))
-            return 0L;
+            return null;
 
 //        Добавляем в бд запись
         Member member = new Member(

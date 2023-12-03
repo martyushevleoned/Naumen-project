@@ -11,6 +11,6 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 
-    @Query("SELECT p FROM Project p WHERE p.user = ?1 AND p.name = ?2 AND p.creationDateTime = ?3")
-    List<Project> findByUserAndNameAndDatetime(User user, String name, Date creationDateTime);
+    @Query("SELECT p.id FROM Project p WHERE p.user = ?1 AND p.name = ?2 AND p.creationDateTime = ?3 ORDER BY p.id LIMIT 1")
+    Long findIdByUserAndNameAndDatetime(User user, String name, Date creationDateTime);
 }
