@@ -5,13 +5,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
-import com.example.todolist.controller.ProjectsListController;
+import com.example.todolist.controller.ProjectListController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,13 +20,14 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @WithUserDetails("123")
+//@TestPropertySource("/application-test.properties")
 public class ProjectListControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private ProjectsListController projectsListController;
+    private ProjectListController projectListController;
 
     @Test
     public void mainPageTest() throws Exception {
@@ -33,5 +35,13 @@ public class ProjectListControllerTest {
                 .andDo(print())
                 .andExpect(authenticated())
                 .andExpect(xpath("/html/body/div[1]/div[1]/div/span/span[2]").string("123"));
+    }
+
+    @Test
+    public void projectListTest() throws Exception {
+        this.mockMvc.perform(get("/projects"))
+                .andDo(print())
+                .andExpect(authenticated())
+                .andExpect(xpath("/html/body/div[2]").nodeCount(1));
     }
 }

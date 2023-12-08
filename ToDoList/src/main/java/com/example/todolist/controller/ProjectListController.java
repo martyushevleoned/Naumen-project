@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class ProjectsListController {
+public class ProjectListController {
 
     @Autowired
     private ProjectService projectService;

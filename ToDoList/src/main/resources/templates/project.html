@@ -2,16 +2,16 @@
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
   <title>My ToDo List</title>
-  <link rel="stylesheet" href="../static/css/base.css">
-  <link rel="stylesheet" href="../static/css/input.css">
-  <link rel="stylesheet" href="../static/css/flex.css">
-  <link rel="stylesheet" href="../static/css/project.css">
-  <link rel="stylesheet" href="../static/css/span.css">
+  <link rel="stylesheet" href="../static/css/base.css"/>
+  <link rel="stylesheet" href="../static/css/input.css"/>
+  <link rel="stylesheet" href="../static/css/flex.css"/>
+  <link rel="stylesheet" href="../static/css/project.css"/>
+  <link rel="stylesheet" href="../static/css/span.css"/>
   <script type="text/javascript" src="../static/js/project.js"></script>
 </head>
 <body>
-<input th:value="${_csrf.token}" id="token" type="hidden">
-<input th:value="${project.id}" id="projectId" type="hidden">
+<input th:value="${_csrf.token}" id="token" type="hidden"/>
+<input th:value="${project.id}" id="projectId" type="hidden"/>
 <div class="header">
   <div class="header-content">
     <div class="content">
@@ -41,7 +41,7 @@
     </div>
     <block th:if="${project.isOwner}">
       <div class="content no-padding">
-        <input placeholder="task name" value="" id="taskName">
+        <input placeholder="task name" value="" id="taskName"/>
       </div>
       <div class="content no-padding">
         <button onclick="newTask()">
@@ -95,7 +95,7 @@
         </block>
       </div>
       <div class="content no-padding">
-        <input placeholder="message" value="" id="message">
+        <input placeholder="message" value="" id="message"/>
       </div>
       <div class="content no-padding">
         <button onclick="newMessage()">
@@ -120,7 +120,7 @@
       </div>
       <block th:if="${project.isOwner}">
         <div class="content no-padding">
-          <input placeholder="username" value="" id="username">
+          <input placeholder="username" value="" id="username"/>
         </div>
         <div class="content no-padding">
           <button onclick="newMember()">
