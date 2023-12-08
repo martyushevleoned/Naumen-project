@@ -2,15 +2,15 @@
 <html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <title>My ToDo List</title>
-    <link rel="stylesheet" href="../static/css/base.css">
-    <link rel="stylesheet" href="../static/css/input.css">
-    <link rel="stylesheet" href="../static/css/flex.css">
-    <link rel="stylesheet" href="../static/css/span.css">
-    <link rel="stylesheet" href="../static/css/projectList.css">
+    <link rel="stylesheet" href="../static/css/base.css"/>
+    <link rel="stylesheet" href="../static/css/input.css"/>
+    <link rel="stylesheet" href="../static/css/flex.css"/>
+    <link rel="stylesheet" href="../static/css/span.css"/>
+    <link rel="stylesheet" href="../static/css/projectList.css"/>
     <script type="text/javascript" src="../static/js/projectList.js"></script>
 </head>
 <body>
-<input th:value="${_csrf.token}" id="token" type="hidden">
+<input th:value="${_csrf.token}" id="token" type="hidden"/>
 <div class="header">
     <div class="header-content">
         <div class="content">
@@ -36,7 +36,7 @@
     </div>
     <div class="header-content">
         <div class="content no-padding">
-            <input placeholder="project name" value="" id="projectName">
+            <input placeholder="project name" value="" id="projectName"/>
         </div>
         <div class="content no-padding">
             <button  onclick="newProject()">
