@@ -1,10 +1,13 @@
 package com.example.todolist.service;
 
+import com.example.todolist.model.entity.Role;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Service
 public class RegistrationService {
@@ -36,6 +39,7 @@ public class RegistrationService {
 
     public void saveUser(User user) {
         user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

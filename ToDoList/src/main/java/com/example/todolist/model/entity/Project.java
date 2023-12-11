@@ -19,14 +19,15 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String name;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date creationDateTime;
 
     @ManyToOne
-    @JoinColumn(name = "ownerId", foreignKey = @ForeignKey(name = "USR_CHT_FK"))
+    @JoinColumn(name = "ownerId", foreignKey = @ForeignKey(name = "USR_CHT_FK"), nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "project", orphanRemoval = true)

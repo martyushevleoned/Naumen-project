@@ -18,18 +18,18 @@ public class Message {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "USR_CHT_FK"))
+    @JoinColumn(name = "userId", foreignKey = @ForeignKey(name = "USR_CHT_FK"), nullable = false)
     private User user;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "chatId", foreignKey = @ForeignKey(name = "CHT_FK"))
+    @JoinColumn(name = "chatId", foreignKey = @ForeignKey(name = "CHT_FK"), nullable = false)
     private Project project;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Date creationDateTime;
 
     public Message(User user, String text, Project project, Date creationDateTime) {
