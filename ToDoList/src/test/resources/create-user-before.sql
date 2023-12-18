@@ -1,3 +1,4 @@
+delete from projects;
 delete from user_role;
 delete from users;
 
@@ -10,3 +11,8 @@ insert into user_role (user_id, roles) values
     (1, 'USER'),
     (2, 'USER'),
     (3, 'USER');
+
+insert into projects (creation_date_time, id, owner_id, name) values
+    (current_timestamp, 1, 1, 'my first project'),
+    (current_timestamp, 2, 1, 'my second project'),
+    (current_timestamp, 3, 1, 'my third project');
