@@ -43,6 +43,8 @@ public class ProjectListControllerTest {
         this.mockMvc.perform(get("/projects"))
                 .andDo(print())
                 .andExpect(authenticated())
-                .andExpect(xpath("/html/body/div[2]").nodeCount(1));
+                .andExpect(xpath("/html/body/div[2]/div[2]/div[1]/span").string("my first project"))
+                .andExpect(xpath("/html/body/div[2]/div[3]/div[1]/span").string("my second project"))
+                .andExpect(xpath("/html/body/div[2]/div[4]/div[1]/span").string("my third project"));
     }
 }
