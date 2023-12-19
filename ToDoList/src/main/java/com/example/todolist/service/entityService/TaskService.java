@@ -5,6 +5,7 @@ import com.example.todolist.model.entity.Task;
 import com.example.todolist.model.entity.User;
 import com.example.todolist.model.repository.ProjectRepository;
 import com.example.todolist.model.repository.TaskRepository;
+import com.example.todolist.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +24,13 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private ValidationService validationService;
+
     public Long addTask(User user, Long projectId, String text) {
 
 //        Проверка на доступ к проекту и существование сущностей
-        if (!projectService.haveAccess(user.getUsername(), projectId))
+        if (!validationService.haveAccess(user.getUsername(), projectId))
             return null;
 
         Project project = projectRepository.getReferenceById(projectId);

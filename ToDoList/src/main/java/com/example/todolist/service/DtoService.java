@@ -31,9 +31,12 @@ public class DtoService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private ValidationService validationService;
+
     public ProjectDto getProject(User user, Long projectId) {
 
-        if (!projectService.haveAccess(user.getUsername(), projectId))
+        if (!validationService.haveAccess(user.getUsername(), projectId))
             return null;
 
         Project project = projectRepository.getReferenceById(projectId);

@@ -44,26 +44,4 @@ public class ProjectService {
 
         return false;
     }
-
-//    Данная функция проверяет является ли пользователь участником проекта
-    public boolean haveAccess(String username, Long projectId) {
-
-//        Проверка на существование пользователя и проекта в базе данных
-        Optional<User> userDB = Optional.ofNullable(userRepository.findByUsername(username));
-        Optional<Project> projectDB = projectRepository.findById(projectId);
-        if (userDB.isEmpty() || projectDB.isEmpty())
-            return false;
-
-//        пользователь имеет доступ если он владелец проекта
-        if (userDB.get().equals(projectDB.get().getUser()))
-            return true;
-
-//        пользователь имеет доступ если есть соответствующая запись в таблице members
-        for (Member m : projectDB.get().getMembers())
-            if (userDB.get().equals(m.getUser()))
-                return true;
-
-//        в остальных случаях пользователь не имеет доступа к проекту
-        return false;
-    }
 }

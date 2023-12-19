@@ -35,13 +35,16 @@ public class ProjectController {
     @Autowired
     private DtoService dtoService;
 
+    @Autowired
+    private ValidationService validationService;
+
 
     @GetMapping("/project/{id}")
     public String getProject(@AuthenticationPrincipal User user,
                              @PathVariable Long id,
                              Model model) {
 
-        if (!projectService.haveAccess(user.getUsername(), id))
+        if (!validationService.haveAccess(user.getUsername(), id))
             return "projectList";
 
         model.addAttribute("project", dtoService.getProject(user, id));
